@@ -7,6 +7,8 @@ var gameApp = express();
 gameApp.use(parser.json());
 gameApp.use(parser.urlencoded({extended: true}));
 gameApp.use(express.static('client/build'));
+gameApp.use(express.static('client/public'));
+
 
 gameApp.get('/', function(req, res) {
   res.sendFile(__dirname + '/client/build/index.html');
