@@ -21,10 +21,6 @@ var Level = function(plan) {
       map.push(coord);
     }
   }
-
-  console.log(yArray);
-  console.log(xArray);
-  console.log(map);
 }
 
 module.exports = Level;
