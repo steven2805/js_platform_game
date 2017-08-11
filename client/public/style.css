@@ -1,0 +1,13 @@
+body {
+  background-color: grey;
+}
+
+h1 {
+  color: blue;
+}
+
+#game-canvas {
+  background: #eee;
+  display: block;
+  margin: 0 auto;
+}
