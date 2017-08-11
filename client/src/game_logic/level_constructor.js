@@ -33,7 +33,14 @@ var Level = function(plan) {
    }
   }
 
-  console.log(walls);
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  walls.forEach(function(coords) {
+    
+  context.fillRect(coords[0], coords[1], 80, 80);
+  context.stroke();
+  })
+
 }
 
 module.exports = Level;
