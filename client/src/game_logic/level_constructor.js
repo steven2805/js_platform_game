@@ -2,7 +2,6 @@ var Level = function(plan) {
   this.plan = plan;
   this.width = plan[0].length;
   this.height = plan.length;
-  var startPoint = [0, 0];
   var map = [];
   var walls = [];
 
@@ -30,16 +29,27 @@ var Level = function(plan) {
       var i = (y * 16) + x;
       walls.push(map[i]);
     }
-   }
+    else if (this.plan[y][x] === 'P') {
+      var p = (y * 16) + x;
+      var player = map[p];
+    }
+
   }
+}
+
+
 
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
-  walls.forEach(function(coords) {
-    
-  context.fillRect(coords[0], coords[1], 80, 80);
+
+  walls.forEach(function(coords) {   
+    context.fillRect(coords[0], coords[1], 80, 80);
+    context.stroke();
+  });
+
+  context.fillStyle = 'red';
+  context.fillRect(player[0], player[1]+40, 20, 40);
   context.stroke();
-  })
 
 }
 

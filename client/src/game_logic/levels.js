@@ -2,7 +2,7 @@ var levelTest = [
 "                ", 
 "                ", 
 "                ", 
-"                ", 
+" P              ", 
 "xxxxxxxxxxxxxxxx", 
 "                ", 
 "                ", 
