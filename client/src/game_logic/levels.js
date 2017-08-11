@@ -1,13 +1,14 @@
 var levelTest = [
-"                ",
-"                ",
-"                ",
-"                ",
-"xxxxxxxxxxxxxxxx",
-"                ",
-"                ",
-"                ",
-"                "
+"                ", 
+"                ", 
+"                ", 
+"                ", 
+"xxxxxxxxxxxxxxxx", 
+"                ", 
+"                ", 
+"                ", 
+"                "  
 ]
 
 module.exports = levelTest;
+

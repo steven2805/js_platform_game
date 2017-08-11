@@ -84,18 +84,19 @@ window.addEventListener('load', gameApp);
 /***/ (function(module, exports) {
 
 var levelTest = [
-"                ",
-"                ",
-"                ",
-"                ",
-"xxxxxxxxxxxxxxxx",
-"                ",
-"                ",
-"                ",
-"                "
+"                ", 
+"                ", 
+"                ", 
+"                ", 
+"xxxxxxxxxxxxxxxx", 
+"                ", 
+"                ", 
+"                ", 
+"                "  
 ]
 
 module.exports = levelTest;
+
 
 
 /***/ }),
@@ -103,10 +104,12 @@ module.exports = levelTest;
 /***/ (function(module, exports) {
 
 var Level = function(plan) {
+  this.plan = plan;
   this.width = plan[0].length;
   this.height = plan.length;
   var startPoint = [0, 0];
   var map = [];
+  var walls = [];
 
   var yArray = [];
   var xArray = [];
@@ -125,6 +128,17 @@ var Level = function(plan) {
       map.push(coord);
     }
   }
+
+  for (var y = 0; y < this.height; y++) {
+   for (var x = 0; x < this.width; x++) {
+    if (this.plan[y][x] === 'x') {
+      var i = (y * 16) + x;
+      walls.push(map[i]);
+    }
+   }
+  }
+
+  console.log(walls);
 }
 
 module.exports = Level;
