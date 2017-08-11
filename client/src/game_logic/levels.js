@@ -6,7 +6,7 @@ var levelTest = [
 "xxxxxxxxxxxxxxxx", 
 "                ", 
 "                ", 
-"                ", 
+"     x x x x    ", 
 "                "  
 ]
 

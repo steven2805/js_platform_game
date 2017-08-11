@@ -39,10 +39,9 @@ Level.prototype.drawMap = function() {
     context.stroke();
   });
 
-  context.fillStyle = 'red';
-  context.fillRect(this.playerStart[0], this.playerStart[1]+40, 20, 40);
-  context.stroke();
-  console.log(this.playerStart)
+  // context.fillStyle = 'red';
+  // context.fillRect(this.playerStart[0], this.playerStart[1]+40, 20, 40);
+  // context.stroke();
 };
 
 
