@@ -5,7 +5,7 @@ var Level = require('./level_constructor');
 
 var gameApp = function() {
   var levelOne = new Level(levelTest);
-  console.log("Test is working");
+  levelOne.setUpMap();
 }
 
 window.addEventListener('load', gameApp);
