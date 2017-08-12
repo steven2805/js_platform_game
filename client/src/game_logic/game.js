@@ -25,8 +25,6 @@ var keyUpHandler = function(evt) {
 }
 
 
-
-
 var gameApp = function() {
   var levelOne = new Level(levelTest);
   levelOne.setUpMap();
@@ -44,11 +42,11 @@ var gameApp = function() {
 
     var playerBottom = [player.position[0] + 10, player.position[1] + 40];
     var playerRightSide = [player.position[0] + 20, player.position[1]];
+    var playerLeftSide = [player.position[0], player.position[1]];
 
     for(var ground of collisions.ground){
       if(playerBottom[0] === ground[0] && playerBottom[1] === ground[1]){
         player.falling = false;
-        // console.log("player is not falling")
         break;
       }
       else
@@ -60,12 +58,24 @@ var gameApp = function() {
     for(var wall of collisions.walls){
       if(playerRightSide[0] === wall[0] && playerRightSide[1] === wall[1]){
         player.walkRight = false;
-        console.log("contact with wall")
+        console.log("contact with wall Right")
         break;
       }
       else
       {
         player.walkRight = true;
+      }
+    }
+
+    for(var wall of collisions.walls){
+      if(playerLeftSide[0] === wall[0] && playerLeftSide[1] === wall[1]){
+        player.walkLeft = false;
+        console.log("contact with wall left")
+        break;
+      }
+      else
+      {
+        player.walkLeft = true;
       }
     }
 
@@ -84,7 +94,7 @@ var gameApp = function() {
       oldCoords = newCoords;
 
     }
-    if (leftKeyPressed) {
+    if (leftKeyPressed && player.walkLeft === true) {
       newCoords = [oldCoords[0] - 10, oldCoords[1]];
       player.draw(newCoords);
       oldCoords = newCoords;

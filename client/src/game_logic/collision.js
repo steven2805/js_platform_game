@@ -32,15 +32,20 @@ var verticalCollision = function(wallArray){
 
     while(counter < 41){
       var tempCoords = [];
-      tempCoords.push(wall[0] + counter)
+      tempCoords.push(wall[0] + counter);
       tempCoords.push(x);
       wallCollisionArray.push(tempCoords);
       counter++;
+    }
+    counter = 0;
 
+    while(counter < 41){
+      tempCoords.push(wall[0] + counter);
+      tempCoords.push(x + 40);
+      counter++;
     }
   })
   return wallCollisionArray;
-  console.log(wallCollisionArray)
 }
 
 module.exports = Collision;
