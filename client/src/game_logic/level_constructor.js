@@ -13,11 +13,11 @@ Level.prototype.setUpMap = function() {
   var xArray = [];
 
   for (var y = 0; y < this.height; y++) {
-    var yCoord = y * 80;
+    var yCoord = y * 40;
     yArray.push(yCoord);
   }
   for (var x = 0; x < this.width; x++) {
-    var xCoord =  x * 80;
+    var xCoord =  x * 40;
     xArray.push(xCoord);
   }
   for (var yElement of yArray) {
@@ -35,7 +35,7 @@ Level.prototype.drawMap = function() {
   var context = canvas.getContext("2d");
 
   this.walls.forEach(function(coords) {   
-    context.fillRect(coords[0], coords[1], 80, 80);
+    context.fillRect(coords[0], coords[1], 40, 40);
     context.stroke();
   });
 
@@ -49,11 +49,11 @@ Level.prototype.objectFinder = function() {
   for (var y = 0; y < this.height; y++) {
     for (var x = 0; x < this.width; x++) {
       if (this.plan[y][x] === 'x') {
-        var i = (y * 16) + x;
+        var i = (y * 32) + x;
         this.walls.push(this.map[i]);
       }
       else if (this.plan[y][x] === 'P') {
-        var p = (y * 16) + x;
+        var p = (y * 32) + x;
         this.playerStart = this.map[p];
       }
     }

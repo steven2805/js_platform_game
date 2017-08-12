@@ -1,13 +1,22 @@
 var levelTest = [
-"                ", 
-"                ", 
-"                ", 
-" P              ", 
-"xxxxxxxxxxxxxxxx", 
-"                ", 
-"                ", 
-"     x x x x    ", 
-"                "  
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+"                                ", 
+" P                              ", 
+"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
+"                                ", 
+"                                ", 
+"                                ", 
+"     x x x x                    ", 
+"                                "  
 ]
 
 module.exports = levelTest;

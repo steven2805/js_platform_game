@@ -30,7 +30,7 @@ var gameApp = function() {
   var levelOne = new Level(levelTest);
   levelOne.setUpMap();
   var player = new Player(levelOne.playerStart);
-  player.draw([levelOne.playerStart[0], levelOne.playerStart[1] + 40]);
+  player.draw([levelOne.playerStart[0], levelOne.playerStart[1]]);
 
   setInterval(function() {
   var oldCoords = player.position;
