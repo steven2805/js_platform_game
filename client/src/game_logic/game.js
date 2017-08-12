@@ -35,34 +35,32 @@ var gameApp = function() {
 
   var collisionsArray = collision(levelOne.walls);
 
-
-    // console.log(playerBottom);
-    // console.log(collisionsArray);
-    var boobs;
-    
   setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
 
     var playerBottom = [player.position[0] + 10, player.position[1] + 40];
 
-    // collisionsArray.forEach(function(coords) {
-    // var x = coords[0];
-    // var y = coords[1];
-    //   if (playerBottom.equals(coords)) {
-    //     player.falling = false;
-    //   }
-    //   else {
-    //     player.falling = true;
-    //   }
-    // })
+    for(var ground of collisionsArray){
+
+      if(playerBottom[0] === ground[0] && playerBottom[1] === ground[1]){
+        player.falling = false;
+        console.log("player is not falling")
+        break;
+      }
+      else
+      {
+        player.falling = true;
+      }
+    }
 
 
-    // if (player.falling === true) {
-    //   newCoords = [oldCoords[0], oldCoords[1] + 10];
-    //   player.draw(newCoords);
-    //   oldCoords = newCoords;
-    // }
+
+    if (player.falling === true) {
+      newCoords = [oldCoords[0], oldCoords[1] + 10];
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }
 
     document.addEventListener('keydown', keyDownHandler, false)
     document.addEventListener('keyup', keyUpHandler, false)
@@ -71,7 +69,6 @@ var gameApp = function() {
       newCoords = [oldCoords[0] + 10, oldCoords[1]];
       player.draw(newCoords);
       oldCoords = newCoords;
-      console.log(boobs);
 
     }
     if (leftKeyPressed) {
@@ -81,9 +78,9 @@ var gameApp = function() {
     }
   }, 10)
 
-  
-  
-  
+
+
+
 }
 
 window.addEventListener('load', gameApp);
