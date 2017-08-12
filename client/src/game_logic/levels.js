@@ -1,3 +1,24 @@
+// var levelTest = [
+// "                                ", 
+// "                                ", 
+// "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// " P                              ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                ", 
+// "                                "  
+// ]
+
 var levelTest = [
 "                                ", 
 "                                ", 
@@ -11,11 +32,11 @@ var levelTest = [
 "                                ", 
 "                                ", 
 " P                              ", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
+" xxxxxxxxx                      ", 
 "                                ", 
 "                                ", 
 "                                ", 
-"     x x x x                    ", 
+"                                ", 
 "                                "  
 ]
 

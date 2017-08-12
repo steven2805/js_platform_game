@@ -1,8 +1,7 @@
 
-
-
 var Player = function(position) {
   this.position = position;
+  this.falling = true;
 }
 
 Player.prototype.draw = function(coords) {
