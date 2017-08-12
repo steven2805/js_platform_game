@@ -1,7 +1,7 @@
 var levelTest = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
-var collision = require('./collision');
+var Collision = require('./collision');
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
@@ -33,19 +33,22 @@ var gameApp = function() {
   var player = new Player(levelOne.playerStart);
   player.draw([levelOne.playerStart[0], levelOne.playerStart[1]]);
 
-  var collisionsArray = collision(levelOne.walls);
+  var collisions = new Collision(levelOne.walls);
+  console.log(collisions)
+
+  // var collisionsArray = collision(levelOne.walls);
 
   setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
 
     var playerBottom = [player.position[0] + 10, player.position[1] + 40];
+    var playerRightSide = [player.position[0] + 20, player.position[1]];
 
-    for(var ground of collisionsArray){
-
+    for(var ground of collisions.ground){
       if(playerBottom[0] === ground[0] && playerBottom[1] === ground[1]){
         player.falling = false;
-        console.log("player is not falling")
+        // console.log("player is not falling")
         break;
       }
       else
@@ -53,8 +56,18 @@ var gameApp = function() {
         player.falling = true;
       }
     }
-
-
+    // console.log(playerRightSide);
+    for(var wall of collisions.walls){
+      if(playerRightSide[0] === wall[0] && playerRightSide[1] === wall[1]){
+        player.walkRight = false;
+        console.log("contact with wall")
+        break;
+      }
+      else
+      {
+        player.walkRight = true;
+      }
+    }
 
     if (player.falling === true) {
       newCoords = [oldCoords[0], oldCoords[1] + 10];
@@ -65,7 +78,7 @@ var gameApp = function() {
     document.addEventListener('keydown', keyDownHandler, false)
     document.addEventListener('keyup', keyUpHandler, false)
 
-    if (rightKeyPressed) {
+    if (rightKeyPressed && player.walkRight === true) {
       newCoords = [oldCoords[0] + 10, oldCoords[1]];
       player.draw(newCoords);
       oldCoords = newCoords;

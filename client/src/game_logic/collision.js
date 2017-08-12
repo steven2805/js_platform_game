@@ -1,4 +1,11 @@
+
+var Collision = function(wallArray){
+  this.ground = collision(wallArray);
+  this.walls = verticalCollision(wallArray);
+}
+
 var collisionArr = [];
+var wallCollisionArray = [];
 
 var collision = function(wallArray) {
   wallArray.forEach(function(wall) {
@@ -18,22 +25,22 @@ var collision = function(wallArray) {
 }
 
 
-// var verticalCollision = function(wallArray){
-//   wallArray.forEach(function(wall){
-//     var x = wall[0];
-//     var counter = 0;
+var verticalCollision = function(wallArray){
+  wallArray.forEach(function(wall){
+    var x = wall[1];
+    var counter = 0;
 
-//     while(counter < 41){
-//       var tempcords = [];
-//       tempCoords.push(wall[1] + counter)
-//       tempCoords.push(x);
-//       wallCollisionArray.push(tempCoords);
-//       counter++;
+    while(counter < 41){
+      var tempCoords = [];
+      tempCoords.push(wall[0] + counter)
+      tempCoords.push(x);
+      wallCollisionArray.push(tempCoords);
+      counter++;
 
+    }
+  })
+  return wallCollisionArray;
+  console.log(wallCollisionArray)
+}
 
-//     }
-//   })
-//   return wallCollisionArray;
-// }
-
-module.exports = collision;
+module.exports = Collision;
