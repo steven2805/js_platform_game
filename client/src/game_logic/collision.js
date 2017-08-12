@@ -4,7 +4,7 @@ var Collision = function(wallArray){
   this.walls = verticalCollision(wallArray);
 }
 
-var collisionArr = [];
+var groundCollisionArray = [];
 var wallCollisionArray = [];
 
 var collision = function(wallArray) {
@@ -16,11 +16,11 @@ var collision = function(wallArray) {
       var tempCoords = [];
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y);
-      collisionArr.push(tempCoords);
+      groundCollisionArray.push(tempCoords);
       counter++;
     }
   });
-  return collisionArr;
+  return groundCollisionArray;
 
 }
 
