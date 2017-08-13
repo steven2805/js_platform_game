@@ -27,6 +27,7 @@ var collision = function(wallArray) {
 
 var verticalCollision = function(wallArray){
   wallArray.forEach(function(wall){
+
     var x = wall[1];
     var counter = 0;
 
@@ -35,14 +36,14 @@ var verticalCollision = function(wallArray){
       tempCoords.push(wall[0] + counter);
       tempCoords.push(x);
       wallCollisionArray.push(tempCoords);
-      counter++;
+      counter += 10;
     }
     counter = 0;
 
     while(counter < 41){
       tempCoords.push(wall[0] + counter);
       tempCoords.push(x + 40);
-      counter++;
+      counter+=10;
     }
   })
   return wallCollisionArray;
