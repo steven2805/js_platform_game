@@ -116,15 +116,27 @@ var gameApp = function() {
 
 
   if (rightKeyPressed && player.walkRight === true) {
+    if(oldCoords[0] + 10 >= 1280){
+    newCoords = [oldCoords[0], oldCoords[1]];
+    player.draw(newCoords);
+    oldCoords = newCoords;
+  }else{
     newCoords = [oldCoords[0] + 10, oldCoords[1]];
     player.draw(newCoords);
     oldCoords = newCoords;
+  }
 
   }
   if (leftKeyPressed && player.walkLeft === true) {
-    newCoords = [oldCoords[0] - 10, oldCoords[1]];
-    player.draw(newCoords);
-    oldCoords = newCoords;
+    if(oldCoords[0] <= 0){
+      newCoords = [oldCoords[0], oldCoords[1]];
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }else{
+      newCoords = [oldCoords[0] - 10, oldCoords[1]];
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }
   }
 
   if(isJumping === true && player.falling === false){
@@ -133,7 +145,7 @@ var gameApp = function() {
     oldCoords = newCoords;
     isjumping = false;
   }
-}, 20)
+}, 50)
 
 
 
