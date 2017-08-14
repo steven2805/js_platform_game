@@ -4,9 +4,20 @@ var Level = function(plan) {
   this.height = plan.length;
   this.map = [];
   this.walls = [];
+  this.grass = [];
+  this.bricks = [];
+  this.coins= [];
   this.playerStart = null;
 }
 
+var imgRock = document.createElement('img');
+imgRock.src = "rock.png"
+var imgGrass = document.createElement('img');
+imgGrass.src = "grass.png"
+var imgBricks = document.createElement('img');
+imgBricks.src = "bricks.png"
+var imgCoins = document.createElement('img');
+imgCoins.src = "coins.png"
 
 Level.prototype.setUpMap = function() {
   var yArray = [];
@@ -30,19 +41,37 @@ Level.prototype.setUpMap = function() {
   return this.map
 };
 
+Level.prototype.deleteCoin = function(coords){
+ var canvas = document.getElementById("game-canvas");
+ var context = canvas.getContext("2d"); 
+ context.clearRect(coords[0], coords[1], 40, 40);
+ console.log("deleteCoin"+coords)
+}
+
 Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
 
-  this.walls.forEach(function(coords) {   
-    context.fillStyle="black";
-    context.fillRect(coords[0], coords[1], 40, 40);
-    context.stroke();
+
+
+
+  this.walls.forEach(function(coords) {  
+  context.drawImage(imgRock, coords[0], coords[1], 40, 40); 
   });
 
-  // context.fillStyle = 'red';
-  // context.fillRect(this.playerStart[0], this.playerStart[1]+40, 20, 40);
-  // context.stroke();
+  this.grass.forEach(function(coords) {  
+  context.drawImage(imgGrass, coords[0], coords[1], 40, 40); 
+  });
+
+  this.bricks.forEach(function(coords) {  
+  context.drawImage(imgBricks, coords[0], coords[1], 40, 40); 
+  });
+
+  this.coins.forEach(function(coords) {  
+  context.drawImage(imgCoins, coords[0], coords[1], 40, 40); 
+
+  });
+
 };
 
 
@@ -52,6 +81,21 @@ Level.prototype.objectFinder = function() {
       if (this.plan[y][x] === 'x') {
         var i = (y * 32) + x;
         this.walls.push(this.map[i]);
+      }
+      else if (this.plan[y][x] === 'g') {
+        var g = (y * 32) + x;
+        this.grass.push(this.map[g]);
+        this.walls.push(this.map[g]);
+      }
+      else if (this.plan[y][x] === 'b') {
+        var b = (y * 32) + x;
+        this.bricks.push(this.map[b]);
+        this.walls.push(this.map[b]);
+      }
+      else if (this.plan[y][x] === 'c') {
+        var c = (y * 32) + x;
+        this.coins.push(this.map[c]);
+        //this.walls.push(this.map[b]);
       }
       else if (this.plan[y][x] === 'P') {
         var p = (y * 32) + x;

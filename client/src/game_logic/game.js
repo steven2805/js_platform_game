@@ -2,12 +2,24 @@ var levelTest = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
+var score = 0;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
 
 
+
+var drawScore = function() {
+    var canvas = document.getElementById("game-canvas");
+    var context = canvas.getContext("2d");
+    context.clearRect(10, 30, 100, -30); 
+    context.beginPath();
+    context.font = "24px Arial";
+    context.fillStyle = "#eee";
+    context.fillText("Score: "+score, 10, 30);
+    context.closePath();
+}
 
 var keyDownHandler = function(evt) {
   if (evt.keyCode === 77) {
@@ -43,7 +55,10 @@ var gameApp = function() {
 
   // Change the collisions to a constructor which contains both walls and ground
   var collisions = new Collision(levelOne.walls);
-  console.log(collisions)
+  var coins = levelOne.coins;
+  console.log(coins)
+  
+  drawScore();
 
   setInterval(function() {
     var oldCoords = player.position;
@@ -52,11 +67,14 @@ var gameApp = function() {
 
 
 
+
+    var playerBottom = [player.position[0] + 10, player.position[1] + 40];
+    var playerRightSide = [player.position[0] + 40, player.position[1]];
+    var playerLeftSide = [player.position[0], player.position[1]];
+
+
   // Added in player right and left side calculations
 
-  var playerBottom = [player.position[0], player.position[1] + 40];
-  var playerRightSide = [player.position[0] + 20, player.position[1]];
-  var playerLeftSide = [player.position[0], player.position[1]];
 
   var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   // var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39];
@@ -117,6 +135,7 @@ var gameApp = function() {
       // console.log("contact with wall left")
       break;
     }
+
     else
     {
       player.walkLeft = true;
@@ -134,6 +153,30 @@ var gameApp = function() {
   document.addEventListener('keydown', keyDownHandler, false)
   document.addEventListener('keyup', keyUpHandler, false)
 
+    // collision with coins
+    // need to delete coins from array to work
+    for(var coin of coins){
+      if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
+        levelOne.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+      }
+      else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
+        levelOne.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+      
+    }    
+    }
+
 
 
   // restricting the key press if there is a collision
@@ -146,7 +189,7 @@ var gameApp = function() {
       oldCoords = newCoords;
     }else{
       newCoords = [oldCoords[0] + 10, oldCoords[1]];
-      player.draw(newCoords);
+      player.drawRight(newCoords);
       oldCoords = newCoords;
     }
 
@@ -158,9 +201,10 @@ var gameApp = function() {
       oldCoords = newCoords;
     }else{
       newCoords = [oldCoords[0] - 10, oldCoords[1]];
-      player.draw(newCoords);
+      player.drawLeft(newCoords);
       oldCoords = newCoords;
     }
+
   }
 
   if(isJumping === true && player.falling === false){
@@ -170,6 +214,9 @@ var gameApp = function() {
     isjumping = false;
   }
 }, 50)
+
+
+
 
 
 
