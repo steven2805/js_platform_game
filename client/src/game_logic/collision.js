@@ -36,14 +36,14 @@ var verticalCollision = function(wallArray){
       tempCoords.push(wall[0] + counter);
       tempCoords.push(x);
       wallCollisionArray.push(tempCoords);
-      counter += 10;
+      counter ++;
     }
     counter = 0;
 
     while(counter < 41){
       tempCoords.push(wall[0] + counter);
       tempCoords.push(x + 40);
-      counter+=10;
+      counter++;
     }
   })
   return wallCollisionArray;

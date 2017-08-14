@@ -58,21 +58,43 @@ var gameApp = function() {
   var playerRightSide = [player.position[0] + 20, player.position[1]];
   var playerLeftSide = [player.position[0], player.position[1]];
 
+  var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  // var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39];
+
   // Completely re-done the ground collidier logic 
 
-  for(var ground of collisions.ground){
-    if((playerBottom[0] === ground[0] && playerBottom[1] === ground[1]) || (playerBottom[0] + 20 === ground[0] && playerBottom[1] === ground[1]) || (playerBottom[0] + 5 === ground[0] &&
-      playerBottom[1] === ground[1]) || (playerBottom[0] + 10 === ground[0] && playerBottom[1] === ground[0]) || (playerBottom[0] + 15 === ground[0] && playerBottom[1] === ground[1])){
-      player.falling = false;
-      break;
-    }
-    else
-    {
-      player.falling = true;
+  // this is working
+  for(var number of numbers){
+    for(var ground of collisions.ground){ 
+
+      if(playerBottom[0] + number === ground[0] && playerBottom[1] === ground[1]){
+        player.falling = false;
+        break;
+      }
+      else{
+        player.falling = true;
+
+      }
     }
   }
 
-  // This is the logic for wall collisions on the right of the player
+
+
+  // for(var number of heightnumbers){
+  //   for(var wall of collisions.walls){ 
+
+  //     if(playerRightSide[0] === wall[0] && playerRightSide[1] + 39 === wall[1]){
+  //       player.walkRight = false;
+  //       break;
+  //     }
+  //     else{
+  //       player.walkRight = true;
+  //     }
+  //   }
+  // }
+
+
+  
 
   for(var wall of collisions.walls){
 
@@ -119,14 +141,14 @@ var gameApp = function() {
 
   if (rightKeyPressed && player.walkRight === true) {
     if(oldCoords[0] + 10 >= 1280){
-    newCoords = [oldCoords[0], oldCoords[1]];
-    player.draw(newCoords);
-    oldCoords = newCoords;
-  }else{
-    newCoords = [oldCoords[0] + 10, oldCoords[1]];
-    player.draw(newCoords);
-    oldCoords = newCoords;
-  }
+      newCoords = [oldCoords[0], oldCoords[1]];
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }else{
+      newCoords = [oldCoords[0] + 10, oldCoords[1]];
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }
 
   }
   if (leftKeyPressed && player.walkLeft === true) {
