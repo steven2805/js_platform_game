@@ -133,7 +133,7 @@ var gameApp = function() {
     oldCoords = newCoords;
     isjumping = false;
   }
-}, 50)
+}, 20)
 
 
 
