@@ -41,10 +41,16 @@ Level.prototype.setUpMap = function() {
   return this.map
 };
 
+Level.prototype.deleteCoin = function(coords){
+ var canvas = document.getElementById("game-canvas");
+ var context = canvas.getContext("2d"); 
+ context.clearRect(coords[0], coords[1], 40, 40);
+ console.log("deleteCoin"+coords)
+}
+
 Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
-  //context.clearRect(0, 0, 1280, 720);
 
 
 
