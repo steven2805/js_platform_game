@@ -52,6 +52,9 @@ Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
 
+
+
+
   this.walls.forEach(function(coords) {  
   context.drawImage(imgRock, coords[0], coords[1], 40, 40); 
   });
@@ -66,6 +69,7 @@ Level.prototype.drawMap = function() {
 
   this.coins.forEach(function(coords) {  
   context.drawImage(imgCoins, coords[0], coords[1], 40, 40); 
+
   });
 
 };
