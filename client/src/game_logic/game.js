@@ -13,7 +13,7 @@ var isJumping = false;
 var drawScore = function() {
     var canvas = document.getElementById("game-canvas");
     var context = canvas.getContext("2d");
-    context.clearRect(10, 30, 100, -30); 
+    context.clearRect(8, 28, 100, -30); 
     context.beginPath();
     context.font = "24px Arial";
     context.fillStyle = "#eee";
@@ -157,7 +157,6 @@ var gameApp = function() {
     // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
-        levelOne.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
@@ -166,7 +165,6 @@ var gameApp = function() {
         break;
       }
       else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
-        levelOne.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
