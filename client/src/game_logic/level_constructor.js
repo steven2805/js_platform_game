@@ -35,6 +35,7 @@ Level.prototype.drawMap = function() {
   var context = canvas.getContext("2d");
 
   this.walls.forEach(function(coords) {   
+    context.fillStyle="black";
     context.fillRect(coords[0], coords[1], 40, 40);
     context.stroke();
   });

@@ -48,6 +48,7 @@ var gameApp = function() {
   setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
+    levelOne.drawMap();
 
 
 
@@ -60,7 +61,8 @@ var gameApp = function() {
   // Completely re-done the ground collidier logic 
 
   for(var ground of collisions.ground){
-    if((playerBottom[0] === ground[0] && playerBottom[1] === ground[1]) || (playerBottom[0] + 20 === ground[0] && playerBottom[1] === ground[1])){
+    if((playerBottom[0] === ground[0] && playerBottom[1] === ground[1]) || (playerBottom[0] + 20 === ground[0] && playerBottom[1] === ground[1]) || (playerBottom[0] + 5 === ground[0] &&
+      playerBottom[1] === ground[1]) || (playerBottom[0] + 10 === ground[0] && playerBottom[1] === ground[0]) || (playerBottom[0] + 15 === ground[0] && playerBottom[1] === ground[1])){
       player.falling = false;
       break;
     }
@@ -74,7 +76,7 @@ var gameApp = function() {
 
   for(var wall of collisions.walls){
 
-    if((playerRightSide[0] === wall[0] && playerRightSide[1] === wall[1]) || (playerRightSide[0] === wall[0] && playerRightSide[1] + 39 === wall[1])){
+    if((playerRightSide[0] === wall[0] && playerRightSide[1] === wall[1]) || (playerRightSide[0] === wall[0] && playerRightSide[1] + 39 === wall[1]) || (playerRightSide[0] === wall[0] && playerRightSide[1] + 10 === wall[1]) || (playerRightSide[0] === wall[0] && playerRightSide[1] + 15 === wall[1]) || (playerRightSide[0] === wall[0] && playerRightSide[1] + 20 === wall[1])){
       player.walkRight = false;
       // console.log("contact with wall Right")
       break;
