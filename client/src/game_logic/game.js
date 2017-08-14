@@ -2,9 +2,21 @@ var levelTest = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
+var score = 0;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
+
+var drawScore = function() {
+    var canvas = document.getElementById("game-canvas");
+    var context = canvas.getContext("2d");
+    context.clearRect(10, 30, 100, -30); 
+    context.beginPath();
+    context.font = "24px Arial";
+    context.fillStyle = "#eee";
+    context.fillText("Score: "+score, 10, 30);
+    context.closePath();
+}
 
 var keyDownHandler = function(evt) {
   if (evt.keyCode === 77) {
@@ -32,7 +44,10 @@ var gameApp = function() {
   player.draw([levelOne.playerStart[0], levelOne.playerStart[1]]);
 
   var collisions = new Collision(levelOne.walls);
-  console.log(collisions)
+  var coins = levelOne.coins;
+  console.log(coins)
+  
+  drawScore();
 
   // var collisionsArray = collision(levelOne.walls);
 
@@ -41,7 +56,7 @@ var gameApp = function() {
     var newCoords = oldCoords;
 
     var playerBottom = [player.position[0] + 10, player.position[1] + 40];
-    var playerRightSide = [player.position[0] + 20, player.position[1]];
+    var playerRightSide = [player.position[0] + 40, player.position[1]];
     var playerLeftSide = [player.position[0], player.position[1]];
 
     for(var ground of collisions.ground){
@@ -84,22 +99,45 @@ var gameApp = function() {
       player.draw(newCoords);
       oldCoords = newCoords;
     }
+    // collision with coins
+    // need to delete coins from array to work
+    for(var coin of coins){
+      if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
+        levelOne.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+      }
+      else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
+        levelOne.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+      
+    }    
+    }
 
     document.addEventListener('keydown', keyDownHandler, false)
     document.addEventListener('keyup', keyUpHandler, false)
 
     if (rightKeyPressed && player.walkRight === true) {
       newCoords = [oldCoords[0] + 10, oldCoords[1]];
-      player.draw(newCoords);
+      player.drawRight(newCoords);
       oldCoords = newCoords;
 
     }
     if (leftKeyPressed && player.walkLeft === true) {
       newCoords = [oldCoords[0] - 10, oldCoords[1]];
-      player.draw(newCoords);
+      player.drawLeft(newCoords);
       oldCoords = newCoords;
     }
-  }, 10)
+  }, 50)
 
 
 
