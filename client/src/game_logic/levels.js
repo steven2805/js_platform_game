@@ -1,25 +1,15 @@
-// var levelTest = [
-// "                                ", 
-// "                                ", 
-// "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// " P                              ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                ", 
-// "                                "  
-// ]
+var LevelPlanner = function(){
+  this.level = selectedLevel();
+};
 
-var levelTest = [
+var selectedLevel = function(){
+  result = loadLevelOne();
+ // document.getElementById("button1").addEventListener("click", loadLevelOne());
+ return result;
+}
+
+var loadLevelOne = function(){
+level = [
 "                                ", 
 "                                ", 
 "  P     c                       ", 
@@ -34,12 +24,16 @@ var levelTest = [
 "xxxxx     c             bb    bb", 
 "xxxxxxxxxxxxx              c  bb", 
 "xxxxx         c         bbbbbbbb", 
-"xxxxx        xxx        bbbbbbbb", 
-"xxxxx                   bbbbbbbb", 
+"xxxxx        xxx     x  bbbbbbbb", 
+"xxxxx                  gbbbbbbbb", 
 "xxxxxgggggggggggggggggggbbbbbbbb", 
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
 
 ]
+return level;
+}
 
-module.exports = levelTest;
+
+
+module.exports = LevelPlanner;
 

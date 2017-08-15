@@ -1,4 +1,4 @@
-var levelTest = require('./levels');
+var LevelPlanner = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
@@ -23,37 +23,38 @@ var drawScore = function() {
 }
 
 var keyDownHandler = function(evt) {
-  if (evt.keyCode === 77) {
+  if (evt.keyCode === 39) {
     rightKeyPressed = true;
   }
-  if (evt.keyCode === 78) {
+  if (evt.keyCode === 37) {
     leftKeyPressed = true;
   }
-  if (evt.keyCode === 74){
+  if (evt.keyCode === 32){
     isJumping = true;
   }
 } 
 
 var keyUpHandler = function(evt) {
-  if (evt.keyCode === 77) {
+  if (evt.keyCode === 39) {
     rightKeyPressed = false;
   }
-  if (evt.keyCode === 78) {
+  if (evt.keyCode === 37) {
     leftKeyPressed = false;
   }
-  if (evt.keyCode === 74) {
+  if (evt.keyCode === 32) {
     isJumping = false;
   }
 }
 
 
 var gameApp = function() {
-  var levelOne = new Level(levelTest);
+  var levelPlan = new LevelPlanner()
+  var levelOne = new Level(levelPlan.level);  
   levelOne.setUpMap();
   var player = new Player(levelOne.playerStart);
   player.draw([levelOne.playerStart[0], levelOne.playerStart[1]]);
   var collisions = new Collision(levelOne.walls);
-  console.log(collisions)
+
 
   var coins = levelOne.coins;
  
@@ -110,8 +111,9 @@ var gameApp = function() {
       newCoords = [oldCoords[0], oldCoords[1] - 100];
       player.draw(newCoords);
       oldCoords = newCoords;
-      isjumping = false;
+      isjumping = false;    
     }
+    
 
 
     playerCanWalk();
