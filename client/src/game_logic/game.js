@@ -41,6 +41,10 @@ var selectLevel = function() {
   gameApp();
 }
 
+var gameOver = function(currentLevel) {
+  currentLevel.deleteMap();
+}
+
 var drawScore = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
@@ -226,6 +230,11 @@ var gameApp = function() {
     // console.log(currentLevel.door);
     // console.log(currentLevel.doorCenter);
     playerCanWalk();
+
+    if (player.lives === 0) {
+      clearInterval(interval);
+      gameOver(currentLevel);
+    }
   }, 50)
 
 
