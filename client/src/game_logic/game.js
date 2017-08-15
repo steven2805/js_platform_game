@@ -5,6 +5,7 @@ var Collision = require('./collision');
 var score = 0;
 var myCoinSound;
 var myMusic;
+var myTadaSound;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
@@ -172,11 +173,17 @@ var gameApp = function() {
 
     if (playerRightSide[0] === levelOne.doorCenter[0] && playerRightSide[1] === levelOne.doorCenter[1]) {
       if (player.hasKey) {
+        myMusic.stop();
+        myTadaSound = new sound("tada.mp3");
+        myTadaSound.play();
         // levelOne.levelComplete()
         console.log("Game Over!")
       }
     else if (playerLeftSide[0] === levelOne.doorCenter[0] && playerLeftSide[1] === levelOne.doorCenter[1]) {
       if (player.hasKey) {
+        myMusic.stop();
+        myTadaSound = new sound("tada.mp3");
+        myTadaSound.play();
         //levelOne.levelComplete();
         console.log("Game Over!")
       }
