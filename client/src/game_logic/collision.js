@@ -10,6 +10,13 @@ var underSides = [];
 var rightWalls = [];
 var leftWalls = [];
 
+Collision.prototype.emptyArrays = function() {
+  groundCollisionArray = [];
+  underSides = [];
+  rightWalls = [];
+  leftWalls = [];
+};
+
 
 var collision = function(wallArray) {
   wallArray.forEach(function(wall) {
@@ -38,7 +45,6 @@ var underSide = function (wallArray){
       counter++;
     }
   });
-  console.log(underSides)
   return underSides;
 }
 
@@ -54,7 +60,6 @@ var rightWallCollision = function(wallArray){
       counter ++;
     }
   })
-  console.log(rightWalls)
   return rightWalls;
 }
 

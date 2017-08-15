@@ -5,6 +5,7 @@ var Player = function(position) {
   this.walkLeft = true;
   this.canJump = true;
   this.hasKey = false;
+  this.lives = 3;
 }
 
 var imgRight = document.createElement('img');
@@ -37,6 +38,13 @@ Player.prototype.drawLeft = function(coords) {
   context.clearRect(this.position[0], this.position[1], 34, 40);
   context.drawImage(imgLeft, coords[0], coords[1], 34, 40);
   this.position = coords;
+};
+
+Player.prototype.fallDeath = function() {
+  if (this.position[1] > 720) {
+    this.position = levelOne.playerStart;
+    this.lives--;
+  }
 };
 
 module.exports = Player;
