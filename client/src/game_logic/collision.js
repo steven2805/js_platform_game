@@ -1,52 +1,80 @@
-
 var Collision = function(wallArray){
   this.ground = collision(wallArray);
-  this.walls = verticalCollision(wallArray);
+  this.underSides = underSide(wallArray);
+  this.rightWalls = rightWallCollision(wallArray);
+  this.leftWalls = leftWallCollision(wallArray);
 }
 
 var groundCollisionArray = [];
-var wallCollisionArray = [];
+var underSides = [];
+var rightWalls = [];
+var leftWalls = [];
+
 
 var collision = function(wallArray) {
   wallArray.forEach(function(wall) {
     var y = wall[1];
     var counter = 0;
-
     while(counter < 41){
       var tempCoords = [];
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y);
       groundCollisionArray.push(tempCoords);
-      counter+=10;
+      counter ++;
     }
   });
   return groundCollisionArray;
-
 }
 
-
-var verticalCollision = function(wallArray){
+var underSide = function (wallArray){
   wallArray.forEach(function(wall){
-
-    var x = wall[1];
+    var y = wall[1];
     var counter = 0;
-
     while(counter < 41){
       var tempCoords = [];
-      tempCoords.push(wall[0] + counter);
+      tempCoords.push(wall[0] + counter)
+      tempCoords.push(y + 40);
+      underSides.push(tempCoords)
+      counter++;
+    }
+  });
+  console.log(underSides)
+  return underSides;
+}
+
+var rightWallCollision = function(wallArray){
+  wallArray.forEach(function(wall){
+    var x = wall[0];
+    var counter = 0;
+    while(counter < 41){
+      var tempCoords = [];
       tempCoords.push(x);
-      wallCollisionArray.push(tempCoords);
+      tempCoords.push(wall[1] + counter);
+      rightWalls.push(tempCoords);
       counter ++;
     }
-    counter = 0;
+  })
+  console.log(rightWalls)
+  return rightWalls;
+}
 
+
+var leftWallCollision = function(wallArray){
+  wallArray.forEach(function(wall){
+    var x = wall[0];
+    var counter = 0;
     while(counter < 41){
-      tempCoords.push(wall[0] + counter);
-      tempCoords.push(x + 40);
-      counter+=10;
+      var tempholding =[];
+      tempholding.push(x + 40);
+      tempholding.push(wall[1] + counter);
+      leftWalls.push(tempholding);
+      counter ++;
     }
   })
-  return wallCollisionArray;
+
+ return leftWalls;
+
 }
+
 
 module.exports = Collision;

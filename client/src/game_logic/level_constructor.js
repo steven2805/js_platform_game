@@ -2,6 +2,8 @@ var Level = function(plan) {
   this.plan = plan;
   this.width = plan[0].length;
   this.height = plan.length;
+  this.cubeSize = 40;
+
   this.map = [];
   this.walls = [];
   this.grass = [];
@@ -24,11 +26,11 @@ Level.prototype.setUpMap = function() {
   var xArray = [];
 
   for (var y = 0; y < this.height; y++) {
-    var yCoord = y * 40;
+    var yCoord = y * this.cubeSize;
     yArray.push(yCoord);
   }
   for (var x = 0; x < this.width; x++) {
-    var xCoord =  x * 40;
+    var xCoord =  x * this.cubeSize;
     xArray.push(xCoord);
   }
   for (var yElement of yArray) {
@@ -107,4 +109,3 @@ Level.prototype.objectFinder = function() {
 }
 
 module.exports = Level;
-

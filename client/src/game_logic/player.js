@@ -1,9 +1,9 @@
-
 var Player = function(position) {
   this.position = position;
   this.falling = true;
   this.walkRight = true;
   this.walkLeft = true;
+  this.canJump = true;
 }
 
 var imgRight = document.createElement('img');
