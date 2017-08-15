@@ -69,8 +69,8 @@ var gameApp = function() {
       // >>>>>>> check if this block of code is needed by pedro <<<<<<<<<
 
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];
-      var playerRightSide = [player.position[0] + 40, player.position[1]];
-      var playerLeftSide = [player.position[0], player.position[1]];
+      var playerRightSide = [player.position[0] + 30, player.position[1]];
+      var playerLeftSide = [player.position[0] -30, player.position[1]];
 
 
       if (player.falling === true) {
@@ -106,6 +106,30 @@ var gameApp = function() {
       }    
     }
 
+    if (playerLeftSide[0] === levelOne.key[0] && playerLeftSide[1] === levelOne.key[1]) {
+      levelOne.removeKey(levelOne.key);
+      player.hasKey = true;
+      console.log(player.hasKey);
+    }
+    else if (playerRightSide[0] === levelOne.key[0] && playerRightSide[1] === levelOne.key[1]) {
+      levelOne.removeKey(levelOne.key);
+      player.hasKey = true;
+      // console.log(player.hasKey);
+    }
+
+    if (playerRightSide[0] === levelOne.doorCenter[0] && playerRightSide[1] === levelOne.doorCenter[1]) {
+      if (player.hasKey) {
+        // levelOne.levelComplete()
+        console.log("Game Over!")
+      }
+    else if (playerLeftSide[0] === levelOne.doorCenter[0] && playerLeftSide[1] === levelOne.doorCenter[1]) {
+      if (player.hasKey) {
+        //levelOne.levelComplete();
+        console.log("Game Over!")
+      }
+    }
+    }
+
 
     if(isJumping === true && player.falling === false && player.canJump == true){
       newCoords = [oldCoords[0], oldCoords[1] - 100];
@@ -113,9 +137,8 @@ var gameApp = function() {
       oldCoords = newCoords;
       isjumping = false;    
     }
-    
-
-
+    // console.log(levelOne.door);
+    // console.log(levelOne.doorCenter);
     playerCanWalk();
   }, 50)
 

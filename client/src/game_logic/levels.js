@@ -22,10 +22,10 @@ level = [
 "xxxxx                   bb      ", 
 "xx xx            xxxxxxxbb  bbbb", 
 "xxxxx     c             bb    bb", 
-"xxxxxxxxxxxxx              c  bb", 
+"xxxxxxxxxxxxx              c Kbb", 
 "xxxxx         c         bbbbbbbb", 
-"xxxxx        xxx     x  bbbbbbbb", 
-"xxxxx                  gbbbbbbbb", 
+"xxxD         xxx     x  bbbbbbbb", 
+"xxx                    gbbbbbbbb", 
 "xxxxxgggggggggggggggggggbbbbbbbb", 
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
 
