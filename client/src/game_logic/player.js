@@ -1,4 +1,5 @@
 var Player = function(position) {
+  this.startingPosition = position;
   this.position = position;
   this.falling = true;
   this.walkRight = true;
@@ -16,7 +17,7 @@ imgLeft.src = "playerLeft.png"
 Player.prototype.draw = function(coords) {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
-
+  console.log(this.position);
   context.clearRect(this.position[0], this.position[1], 34, 40);
   context.drawImage(imgRight, coords[0], coords[1], 34, 40);
   this.position = coords;
@@ -40,10 +41,11 @@ Player.prototype.drawLeft = function(coords) {
   this.position = coords;
 };
 
-Player.prototype.fallDeath = function() {
+Player.prototype.fallDeath = function(coords) {
   if (this.position[1] > 720) {
-    this.position = levelOne.playerStart;
+    this.falling = false;
     this.lives--;
+    this.draw(coords);
   }
 };
 

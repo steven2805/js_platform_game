@@ -26,15 +26,15 @@ var levelsPack = [[
 "xxxxx         c         bbbbbbbb", 
 "xxxD         xxx     x  bbbbbbbb", 
 "xxx     K              gbbbbbbbb", 
-"xxxxxgggggggggggggggggggbbbbbbbb", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
+"xxxxxgggggggggg  gggggggbbbbbbbb", 
+"xxxxxxxxxxxxxxx  xxxxxxxxxxxxxxx"  
 ],
 
 [
 "                                ", 
 "                                ", 
 "  P     c                       ", 
-"                                ", 
+" xxxxxxxx                       ", 
 "                                ", 
 "                                ", 
 "                                ", 

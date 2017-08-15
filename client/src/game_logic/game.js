@@ -103,7 +103,7 @@ var gameApp = function() {
 
     collisionDetection();
     halfJump();
-    player.fallDeath();
+    player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
     
       // >>>>>>> check if this block of code is needed by pedro <<<<<<<<<
 
