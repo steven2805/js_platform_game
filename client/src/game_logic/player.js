@@ -8,9 +8,9 @@ var Player = function(position) {
 }
 
 var imgRight = document.createElement('img');
-imgRight.src = "playerRight.png"
+imgRight.src = "/images/playerRight.png"
 var imgLeft = document.createElement('img');
-imgLeft.src = "playerLeft.png"
+imgLeft.src = "/images/playerLeft.png"
 
 Player.prototype.draw = function(coords) {
   var canvas = document.getElementById("game-canvas");

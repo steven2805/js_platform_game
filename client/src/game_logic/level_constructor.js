@@ -19,19 +19,19 @@ var Level = function(plan) {
 }
 
 var imgRock = document.createElement('img');
-imgRock.src = "rock.png"
+imgRock.src = "/images/rock.png"
 var imgGrass = document.createElement('img');
-imgGrass.src = "grass.png"
+imgGrass.src = "/images/grass.png"
 var imgBricks = document.createElement('img');
-imgBricks.src = "bricks.png"
+imgBricks.src = "/images/bricks.png"
 var imgCoins = document.createElement('img');
-imgCoins.src = "coins.png"
+imgCoins.src = "/images/coins.png"
 var imgWood = document.createElement('img');
-imgWood.src = "wood.png"
+imgWood.src = "/images/wood.png"
 var imgKey = document.createElement('img');
-imgKey.src = "key.png";
+imgKey.src = "/images/key.png";
 var imgDoor = document.createElement('img');
-imgDoor.src = "door.png";
+imgDoor.src = "/images/door.png";
 
 
 Level.prototype.setUpMap = function() {
