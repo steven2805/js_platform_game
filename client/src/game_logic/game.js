@@ -7,8 +7,7 @@ var score = 0;
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
-
-
+var setHalfJump = false;
 
 
 var drawScore = function() {
@@ -57,7 +56,7 @@ var gameApp = function() {
 
 
   var coins = levelOne.coins;
- 
+
   drawScore();
 
   setInterval(function() {
@@ -65,22 +64,32 @@ var gameApp = function() {
     var newCoords = oldCoords;
     levelOne.drawMap();
     collisionDetection();
+    halfJump();
     
       // >>>>>>> check if this block of code is needed by pedro <<<<<<<<<
 
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];
       var playerRightSide = [player.position[0] + 30, player.position[1]];
-      var playerLeftSide = [player.position[0] -30, player.position[1]];
+      var playerLeftSide = [player.position[0] - 30, player.position[1]];
+
 
 
       if (player.falling === true) {
         newCoords = [oldCoords[0], oldCoords[1] + 10];
+        
         player.draw(newCoords);
         oldCoords = newCoords;
       }
 
-      document.addEventListener('keydown', keyDownHandler, false)
-      document.addEventListener('keyup', keyUpHandler, false)
+      if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
+       collisionDetection();
+
+
+     }
+
+
+     document.addEventListener('keydown', keyDownHandler, false)
+     document.addEventListener('keyup', keyUpHandler, false)
 
     // collision with coins
     // need to delete coins from array to work
@@ -106,6 +115,7 @@ var gameApp = function() {
       }    
     }
 
+
     if (playerLeftSide[0] === levelOne.key[0] && playerLeftSide[1] === levelOne.key[1]) {
       levelOne.removeKey(levelOne.key);
       player.hasKey = true;
@@ -130,19 +140,30 @@ var gameApp = function() {
     }
     }
 
+    
+    if(isJumping === true && player.falling === false && player.canJump == true){  
+      if(setHalfJump === false){
+        newCoords = [oldCoords[0], oldCoords[1] - 100];
+        player.draw(newCoords);
+        oldCoords = newCoords;
+        isjumping = false;  
+      }
+      else if(setHalfJump === true){
+        {
+          newCoords = [oldCoords[0], oldCoords[1] - 60];
+          player.draw(newCoords);
+          oldCoords = newCoords;
+          isjumping = false; 
+        }
+      }  
 
-    if(isJumping === true && player.falling === false && player.canJump == true){
-      newCoords = [oldCoords[0], oldCoords[1] - 100];
-      player.draw(newCoords);
-      oldCoords = newCoords;
-      isjumping = false;    
     }
     // console.log(levelOne.door);
     // console.log(levelOne.doorCenter);
     playerCanWalk();
   }, 50)
 
- 
+
 
   var playerCanWalk = function(){
     var oldCoords = player.position;
@@ -178,8 +199,7 @@ var gameApp = function() {
 
   var collisionDetection = function(){
 
-    var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-    var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34];
+
 
     for(var number of numbers){
       for(var ground of collisions.ground){ 
@@ -205,6 +225,8 @@ var gameApp = function() {
         }
       }
     }
+
+
     for(var number of heightnumbers){
       for(var wall of collisions.rightWalls){ 
         if(player.position[0] + 40 === wall[0] && player.position[1] + number === wall[1]){
@@ -231,8 +253,26 @@ var gameApp = function() {
     }
   }
 
+  var halfJump = function(){
+    for(var number of numbers){
+      for(var underside of collisions.underSides){
+        if(player.position[0] + number === underside[0] && player.position[1] - 40 === underside[1]){
 
+          setHalfJump = true;
+          break;
+        }
+        else
+        {
+          setHalfJump = false;
+        }
+      }
+    }
 
+  }
 }
+
+var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34];
+
 
 window.addEventListener('load', gameApp);
