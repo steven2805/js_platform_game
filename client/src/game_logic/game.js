@@ -73,6 +73,7 @@ var gameApp = function() {
       var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
 
+
       if (player.falling === true) {
         newCoords = [oldCoords[0], oldCoords[1] + 10];
         
@@ -114,6 +115,31 @@ var gameApp = function() {
       }    
     }
 
+
+    if (playerLeftSide[0] === levelOne.key[0] && playerLeftSide[1] === levelOne.key[1]) {
+      levelOne.removeKey(levelOne.key);
+      player.hasKey = true;
+      console.log(player.hasKey);
+    }
+    else if (playerRightSide[0] === levelOne.key[0] && playerRightSide[1] === levelOne.key[1]) {
+      levelOne.removeKey(levelOne.key);
+      player.hasKey = true;
+      // console.log(player.hasKey);
+    }
+
+    if (playerRightSide[0] === levelOne.doorCenter[0] && playerRightSide[1] === levelOne.doorCenter[1]) {
+      if (player.hasKey) {
+        // levelOne.levelComplete()
+        console.log("Game Over!")
+      }
+    else if (playerLeftSide[0] === levelOne.doorCenter[0] && playerLeftSide[1] === levelOne.doorCenter[1]) {
+      if (player.hasKey) {
+        //levelOne.levelComplete();
+        console.log("Game Over!")
+      }
+    }
+    }
+
     
     if(isJumping === true && player.falling === false && player.canJump == true){  
       if(setHalfJump === false){
@@ -130,10 +156,10 @@ var gameApp = function() {
           isjumping = false; 
         }
       }  
+
     }
-    
-
-
+    // console.log(levelOne.door);
+    // console.log(levelOne.doorCenter);
     playerCanWalk();
   }, 50)
 
