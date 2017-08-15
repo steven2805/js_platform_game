@@ -23,6 +23,12 @@ Player.prototype.draw = function(coords) {
   this.position = coords;
 };
 
+Player.prototype.delete = function() {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(this.position[0], this.position[1], 34, 40);
+};
+
 Player.prototype.drawRight = function(coords) {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
