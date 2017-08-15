@@ -16,18 +16,18 @@ var isJumping = false;
 
 //music handler
 function sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function(){
-        this.sound.play();
-    }
-    this.stop = function(){
-        this.sound.pause();
-    }
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
 }
 
 
@@ -180,7 +180,6 @@ var gameApp = function() {
     else if (playerRightSide[0] === currentLevel.key[0] && playerRightSide[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
-      // console.log(player.hasKey);
     }
 
     if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
@@ -188,25 +187,23 @@ var gameApp = function() {
         myMusic.stop();
         myTadaSound = new sound("tada.mp3");
         myTadaSound.play();
-        // currentLevel.levelComplete()
-        console.log("Game Over!")
         clearInterval(interval);
+        player.delete();
         collisions.emptyArrays();
         selectLevel()
       }
-    else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
-      if (player.hasKey) {
-        myMusic.stop();
-        myTadaSound = new sound("tada.mp3");
-        myTadaSound.play();
-        console.log("Game is Over!")
-        // currentLevel.levelComplete();
-        clearInterval(interval);
-        collisions.clearArrays();
-        selectLevel()
-       
+      else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
+        if (player.hasKey) {
+          myMusic.stop();
+          myTadaSound = new sound("tada.mp3");
+          myTadaSound.play();
+          clearInterval(interval);
+          player.delete();
+          collisions.clearArrays();
+          selectLevel()
+          
+        }
       }
-    }
     }
 
     
@@ -227,8 +224,6 @@ var gameApp = function() {
       }  
 
     }
-    // console.log(currentLevel.door);
-    // console.log(currentLevel.doorCenter);
     playerCanWalk();
 
     if (player.lives === 0) {
