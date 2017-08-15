@@ -69,17 +69,17 @@ var level3 = [
 "x               wwwwwwww     wwx", 
 "xwwwwwwwwwww    w          wwwwx", 
 "x          wwcwww  wwwwwwwwwwwwx", 
-"x           www                   x", 
-"x         c             gggggg x", 
-"x       xxxxxxxxxxxxx   bbbbbb x", 
-"x                       bb     x", 
-"x               xxxxxxxxbb  bbbx", 
-"x         c             bb    bx", 
-"xxxxxxxxxxxxx              c  bx", 
-"xxxxx         c         bbbbbbbx", 
-"xxxxx        xxx        bbbbbbbx", 
-"xxxxx   c               bbbbbbbx", 
-"xxxxxgggggggggggggggggggbbbbbbbx" 
+"x           www    w           x", 
+"x c       c        w       c   x", 
+"xwww    wwwwwwwwwwww    wwwwwwwx", 
+"x                       ww   c x", 
+"x   wwwww             wwww  wwwx", 
+"x         c                wwwwx", 
+"xxxxxxxxxxxxx   xxxxxxxxxxxxxxxx", 
+"xxxxx         c         xxxxxxxx", 
+"xxxxx        xxx        xxxxxxxx", 
+"xxxxx   c           c   xxxxxxxx", 
+"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
 ]
 
 module.exports = level3;
