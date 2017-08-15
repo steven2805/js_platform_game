@@ -3,11 +3,34 @@ var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
 var score = 0;
+var myCoinSound;
+var myMusic;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
+
+
+//music handler
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+
+
+
 var setHalfJump = false;
+
 
 
 var drawScore = function() {
@@ -57,6 +80,11 @@ var gameApp = function() {
 
   var coins = levelOne.coins;
 
+
+  // calling music;
+  myMusic = new sound("gametheme.mp3");
+  myMusic.play();
+
   drawScore();
 
   setInterval(function() {
@@ -71,7 +99,6 @@ var gameApp = function() {
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];
       var playerRightSide = [player.position[0] + 30, player.position[1]];
       var playerLeftSide = [player.position[0] - 30, player.position[1]];
-
 
 
       if (player.falling === true) {
@@ -95,6 +122,8 @@ var gameApp = function() {
     // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
         levelOne.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
@@ -104,6 +133,8 @@ var gameApp = function() {
         break;
       }
       else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
         levelOne.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
@@ -112,7 +143,19 @@ var gameApp = function() {
         console.log(score)
         break;
 
-      }    
+      }
+      else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
+        levelOne.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+
+      }     
     }
 
 

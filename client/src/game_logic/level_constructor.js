@@ -9,9 +9,12 @@ var Level = function(plan) {
   this.grass = [];
   this.bricks = [];
   this.coins= [];
+  this.wood= [];
+
   this.key = null;
   this.door = null;
   this.doorCenter = null;
+
   this.playerStart = null;
 }
 
@@ -23,10 +26,13 @@ var imgBricks = document.createElement('img');
 imgBricks.src = "bricks.png"
 var imgCoins = document.createElement('img');
 imgCoins.src = "coins.png"
+var imgWood = document.createElement('img');
+imgWood.src = "wood.png"
 var imgKey = document.createElement('img');
 imgKey.src = "key.png";
 var imgDoor = document.createElement('img');
 imgDoor.src = "door.png";
+
 
 Level.prototype.setUpMap = function() {
   var yArray = [];
@@ -78,6 +84,11 @@ Level.prototype.drawMap = function() {
   this.bricks.forEach(function(coords) {  
   context.drawImage(imgBricks, coords[0], coords[1], 40, 40); 
   });
+
+  this.wood.forEach(function(coords) {  
+  context.drawImage(imgWood, coords[0], coords[1], 40, 40); 
+  });
+
   this.coins.forEach(function(coords) {  
   context.drawImage(imgCoins, coords[0], coords[1], 40, 40); 
   });
@@ -104,10 +115,14 @@ Level.prototype.objectFinder = function() {
         this.bricks.push(this.map[b]);
         this.walls.push(this.map[b]);
       }
+      else if (this.plan[y][x] === 'w') {
+        var w = (y * 32) + x;
+        this.wood.push(this.map[w]);
+        this.walls.push(this.map[w]);
+      }
       else if (this.plan[y][x] === 'c') {
         var c = (y * 32) + x;
         this.coins.push(this.map[c]);
-        //this.walls.push(this.map[b]);
       }
       else if (this.plan[y][x] === 'P') {
         var p = (y * 32) + x;
