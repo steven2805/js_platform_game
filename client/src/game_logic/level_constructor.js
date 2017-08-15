@@ -10,6 +10,11 @@ var Level = function(plan) {
   this.bricks = [];
   this.coins= [];
   this.wood= [];
+
+  this.key = null;
+  this.door = null;
+  this.doorCenter = null;
+
   this.playerStart = null;
 }
 
@@ -23,6 +28,11 @@ var imgCoins = document.createElement('img');
 imgCoins.src = "coins.png"
 var imgWood = document.createElement('img');
 imgWood.src = "wood.png"
+var imgKey = document.createElement('img');
+imgKey.src = "key.png";
+var imgDoor = document.createElement('img');
+imgDoor.src = "door.png";
+
 
 Level.prototype.setUpMap = function() {
   var yArray = [];
@@ -53,21 +63,24 @@ Level.prototype.deleteCoin = function(coords){
  console.log("deleteCoin"+coords)
 }
 
+Level.prototype.removeKey = function(coords) {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(coords[0], coords[1], 40, 40);
+  this.key = [2000, 1000];
+  console.log("Key removed "+ coords)
+};
+  
 Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
 
-
-
-
   this.walls.forEach(function(coords) {  
   context.drawImage(imgRock, coords[0], coords[1], 40, 40); 
   });
-
   this.grass.forEach(function(coords) {  
   context.drawImage(imgGrass, coords[0], coords[1], 40, 40); 
   });
-
   this.bricks.forEach(function(coords) {  
   context.drawImage(imgBricks, coords[0], coords[1], 40, 40); 
   });
@@ -78,8 +91,9 @@ Level.prototype.drawMap = function() {
 
   this.coins.forEach(function(coords) {  
   context.drawImage(imgCoins, coords[0], coords[1], 40, 40); 
-
   });
+  context.drawImage(imgKey, this.key[0], this.key[1], 40, 40);
+  context.drawImage(imgDoor, this.door[0], this.door[1], 80, 80);
 
 };
 
@@ -113,6 +127,15 @@ Level.prototype.objectFinder = function() {
       else if (this.plan[y][x] === 'P') {
         var p = (y * 32) + x;
         this.playerStart = this.map[p];
+      }
+      else if (this.plan[y][x] === "K") {
+        var k = (y * 32) + x;
+        this.key = this.map[k];
+      }
+      else if (this.plan[y][x] === "D") {
+        var d = (y *32) + x;
+        this.door = this.map[d];
+        this.doorCenter = [this.door[0]+40, this.door[1]+40];
       }
     }
   }

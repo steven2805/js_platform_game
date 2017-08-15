@@ -4,6 +4,7 @@ var Player = function(position) {
   this.walkRight = true;
   this.walkLeft = true;
   this.canJump = true;
+  this.hasKey = false;
 }
 
 var imgRight = document.createElement('img');
