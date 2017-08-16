@@ -87,6 +87,36 @@ var keyUpHandler = function(evt) {
   }
 }
 
+var playerCanWalk = function(){
+  var oldCoords = player.position;
+  var newCoords = oldCoords;
+
+  if (rightKeyPressed && player.walkRight === true) {
+    if(oldCoords[0] + 10 >= 1280){
+      newCoords = [oldCoords[0], oldCoords[1]];
+      player.position = newCoords;
+    }
+    else{
+      newCoords = [oldCoords[0] + 10, oldCoords[1]];
+      player.drawRight = true;
+      player.position = newCoords;
+      return newCoords;
+    }
+  }
+
+  if (leftKeyPressed && player.walkLeft === true) {
+    if(oldCoords[0] <= 0){
+      newCoords = [oldCoords[0], oldCoords[1]];
+    }
+    else {
+      newCoords = [oldCoords[0] - 10, oldCoords[1]];
+      player.drawRight = false;
+      player.position = newCoords;
+      return newCoords;
+    }
+  }
+}
+
 var gameApp = function() {
   currentLevel = new Level(currentPlan); 
   currentLevel.deleteMap(); 
@@ -115,7 +145,7 @@ var gameApp = function() {
     collisions.collisionDetection(player);
     collisions.halfJump(player);
 
-     
+    //Player death
     if(player.position[1] > 720 || (!player.falling && fallCounter >200)) {
       myMusic.stop();
       player.myDieSound.play();
@@ -127,26 +157,27 @@ var gameApp = function() {
       player.position = player.startingPosition;
     }
     
-      var playerBottom = [player.position[0] + 10, player.position[1] + 40];
-      var playerRightSide = [player.position[0] + 30, player.position[1]];
-      var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
+    var playerBottom = [player.position[0] + 10, player.position[1] + 40];
+    var playerRightSide = [player.position[0] + 30, player.position[1]];
+    var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
-      if (player.falling === true) {
-        fallCounter += 10;
-        newCoords = [oldCoords[0], oldCoords[1] + 10];
-        player.position = newCoords;
-        console.log(fallCounter);
-      }
-      else if (!player.falling) {
-        fallCounter = 0;
-      }
+    //falling
+    if (player.falling === true) {
+      fallCounter += 10;
+      newCoords = [oldCoords[0], oldCoords[1] + 10];
+      player.position = newCoords;
+      console.log(fallCounter);
+    }
+    else if (!player.falling) {
+      fallCounter = 0;
+    }
 
-      if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
-        collisions.collisionDetection(player);
-      }
+    if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
+      collisions.collisionDetection(player);
+    }
 
-
+    //Picking up coins
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
@@ -183,7 +214,7 @@ var gameApp = function() {
       }     
     }
 
-
+    //Picking up key
     if (player.position[0] - 30 === currentLevel.key[0] && player.position[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
@@ -194,6 +225,7 @@ var gameApp = function() {
       player.hasKey = true;
     }
 
+    //Finish Level
     if (player.position[0] + 30 === currentLevel.doorCenter[0] && player.position[1] === currentLevel.doorCenter[1]) {
       if (player.hasKey) {
         myMusic.stop();
@@ -216,18 +248,16 @@ var gameApp = function() {
       }
     }
 
-    
+    //Jumping
     if(isJumping === true && player.falling === false && player.canJump == true){
       collisions.halfJump(player);
       if(player.setHalfJump === false){
         newCoords = [oldCoords[0], oldCoords[1] - 100];
-        // player.draw(newCoords);
         player.position = newCoords;
         isjumping = false;  
       }
       else if(player.setHalfJump === true){
         newCoords = [oldCoords[0], oldCoords[1] - 60];
-        // player.draw(newCoords);
         player.position= newCoords;
         isjumping = false;  
       }  
@@ -246,41 +276,7 @@ var gameApp = function() {
 
 
 
-  var playerCanWalk = function(){
-    var oldCoords = player.position;
-    var newCoords = oldCoords;
-
-    if (rightKeyPressed && player.walkRight === true) {
-      if(oldCoords[0] + 10 >= 1280){
-        newCoords = [oldCoords[0], oldCoords[1]];
-        // player.draw(newCoords);
-        //oldCoords = newCoords;
-        player.position = newCoords;
-      }else{
-        newCoords = [oldCoords[0] + 10, oldCoords[1]];
-        player.drawRight = true;
-        oldCoords = newCoords;
-        player.position = newCoords;
-        return newCoords;
-      }
-    }
-
-    if (leftKeyPressed && player.walkLeft === true) {
-      if(oldCoords[0] <= 0){
-        newCoords = [oldCoords[0], oldCoords[1]];
-        // player.draw(newCoords);
-        // oldCoords = newCoords;
-
-      }
-      else {
-        newCoords = [oldCoords[0] - 10, oldCoords[1]];
-        player.drawRight = false;
-        player.position = newCoords;
-        return newCoords;
-        // oldCoords = newCoords;
-      }
-    }
-  }
+  
 }
 
 window.addEventListener('load', gameApp);
