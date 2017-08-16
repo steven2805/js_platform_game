@@ -248,7 +248,7 @@ var gameApp = function() {
       clearInterval(interval);
       gameOver();
     }
-  }, 50)
+  }, 40)
 
 
 
