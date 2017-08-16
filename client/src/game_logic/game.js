@@ -43,9 +43,11 @@ var selectLevel = function() {
     gameOver();
     return;
   }
-  var newLevel = levelsPack[levelCounter];
-  currentPlan = newLevel;
-  gameApp();
+  else {
+    var newLevel = levelsPack[levelCounter];
+    currentPlan = newLevel;
+    gameApp();
+  }
 }
 
 var gameOver = function() {
