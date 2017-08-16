@@ -87,19 +87,21 @@ var keyUpHandler = function(evt) {
   }
 }
 
-
 var gameApp = function() {
   currentLevel = new Level(currentPlan); 
   currentLevel.deleteMap(); 
   currentLevel.setUpMap();
   player = new Player(currentLevel.playerStart);
-  player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
+  //player.draw();
   var collisions = new Collision(currentLevel.walls);
   var coins = currentLevel.coins;
 
   // calling music;
   myMusic = new Sound("/sounds/gametheme.mp3");
   myMusic.play();
+
+  document.addEventListener('keydown', keyDownHandler, false)
+  document.addEventListener('keyup', keyUpHandler, false)
 
   //Beginning of interval loop
   var interval = setInterval(function() {
@@ -112,6 +114,7 @@ var gameApp = function() {
     collisions.collisionDetection(player);
     collisions.halfJump(player);
 
+     
     if(player.position[1] > 720) {
       myMusic.stop();
       player.myDieSound.play();
@@ -131,16 +134,14 @@ var gameApp = function() {
       if (player.falling === true) {
         newCoords = [oldCoords[0], oldCoords[1] + 10];
         
-        player.draw(newCoords);
-        oldCoords = newCoords;
+        //player.draw(newCoords);
+        player.position = newCoords;
       }
 
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
         collisions.collisionDetection(player);
       }
 
-     document.addEventListener('keydown', keyDownHandler, false)
-     document.addEventListener('keyup', keyUpHandler, false)
 
     // collision with coins
     // need to delete coins from array to work
@@ -218,27 +219,27 @@ var gameApp = function() {
       collisions.halfJump(player);
       if(player.setHalfJump === false){
         newCoords = [oldCoords[0], oldCoords[1] - 100];
-        player.draw(newCoords);
-        oldCoords = newCoords;
+        // player.draw(newCoords);
+        player.position = newCoords;
         isjumping = false;  
       }
       else if(player.setHalfJump === true){
-        {
-          newCoords = [oldCoords[0], oldCoords[1] - 60];
-          player.draw(newCoords);
-          oldCoords = newCoords;
-          isjumping = false; 
-        }
+        newCoords = [oldCoords[0], oldCoords[1] - 60];
+        // player.draw(newCoords);
+        player.position= newCoords;
+        isjumping = false;  
       }  
 
     }
-    playerCanWalk();
+    newCoords = playerCanWalk();
 
     if (player.lives === 0) {
       myMusic.stop();
       clearInterval(interval);
       gameOver();
     }
+
+    player.draw(player.position);
   }, 40)
 
 
@@ -250,28 +251,32 @@ var gameApp = function() {
     if (rightKeyPressed && player.walkRight === true) {
       if(oldCoords[0] + 10 >= 1280){
         newCoords = [oldCoords[0], oldCoords[1]];
-        player.draw(newCoords);
-        oldCoords = newCoords;
+        // player.draw(newCoords);
+        //oldCoords = newCoords;
+        player.position = newCoords;
       }else{
         newCoords = [oldCoords[0] + 10, oldCoords[1]];
-        player.drawRight(newCoords);
+        player.drawRight = true;
         oldCoords = newCoords;
+        player.position = newCoords;
+        return newCoords;
       }
-
     }
 
     if (leftKeyPressed && player.walkLeft === true) {
       if(oldCoords[0] <= 0){
         newCoords = [oldCoords[0], oldCoords[1]];
-        player.draw(newCoords);
-        oldCoords = newCoords;
+        // player.draw(newCoords);
+        // oldCoords = newCoords;
+
       }
       else {
         newCoords = [oldCoords[0] - 10, oldCoords[1]];
-        player.drawLeft(newCoords);
-        oldCoords = newCoords;
+        player.drawRight = false;
+        player.position = newCoords;
+        return newCoords;
+        // oldCoords = newCoords;
       }
-
     }
   }
 }
