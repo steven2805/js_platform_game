@@ -49,6 +49,7 @@ var selectLevel = function() {
 }
 
 var gameOver = function() {
+  myMusic.stop();
   currentLevel.deleteMap();
   var endPlan = levelsPack[4];
   var endLevel = new Level(endPlan);
@@ -136,10 +137,12 @@ var gameApp = function() {
     if(player.position[1] > 720) {
       myMusic.stop();
       player.myDieSound.play();
+      player.position = player.startingPosition;
+      player.falling = false;
       setTimeout(function() {
         player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]])
       myMusic.play();
-      }, 3000)
+      }, 4000)
     }
     
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];

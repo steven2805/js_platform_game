@@ -52,13 +52,8 @@ Player.prototype.drawLeft = function(coords) {
 };
 
 Player.prototype.fallDeath = function(coords) {
-  if (this.position[1] > 720) {
-    // this.myDieSound.play();
-    this.falling = false;
-    this.lives--;
-    this.draw(coords);
-    return true;
-  }
+  this.lives--;
+  this.draw(coords);
 };
 
 module.exports = Player;
