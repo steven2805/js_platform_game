@@ -240,6 +240,7 @@ var gameApp = function() {
     playerCanWalk();
 
     if (player.lives === 0) {
+      myMusic.stop();
       clearInterval(interval);
       gameOver();
     }
