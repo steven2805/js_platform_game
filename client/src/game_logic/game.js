@@ -147,7 +147,7 @@ var gameApp = function() {
     collisions.halfJump(player);
 
     //Player death
-    if(player.position[1] > 720 ) {
+    if(player.position[1] > 720 || (!player.falling && fallCounter >200)) {
       myMusic.stop();
       player.myDieSound.play();
       player.falling = false;
