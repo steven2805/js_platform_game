@@ -95,6 +95,7 @@ var gameApp = function() {
   //player.draw();
   var collisions = new Collision(currentLevel.walls);
   var coins = currentLevel.coins;
+  var fallCounter = 0;
 
   // calling music;
   myMusic = new Sound("/sounds/gametheme.mp3");
@@ -115,7 +116,7 @@ var gameApp = function() {
     collisions.halfJump(player);
 
      
-    if(player.position[1] > 720) {
+    if(player.position[1] > 720 || (!player.falling && fallCounter >200)) {
       myMusic.stop();
       player.myDieSound.play();
       player.falling = false;
@@ -132,10 +133,13 @@ var gameApp = function() {
 
 
       if (player.falling === true) {
+        fallCounter += 10;
         newCoords = [oldCoords[0], oldCoords[1] + 10];
-        
-        //player.draw(newCoords);
         player.position = newCoords;
+        console.log(fallCounter);
+      }
+      else if (!player.falling) {
+        fallCounter = 0;
       }
 
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
@@ -143,8 +147,6 @@ var gameApp = function() {
       }
 
 
-    // collision with coins
-    // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
@@ -239,7 +241,7 @@ var gameApp = function() {
       gameOver();
     }
 
-    player.draw(player.position);
+    player.draw();
   }, 40)
 
 

@@ -21,13 +21,20 @@ var imgRight = document.createElement('img');
 imgRight.src = "/images/playerRight.png"
 var imgLeft = document.createElement('img');
 imgLeft.src = "/images/playerLeft.png"
+var imgFall = document.createElement('img');
+imgFall.src = "/images/playerFall.png"
+var imgFallLeft = document.createElement('img');
+imgFallLeft.src = "/images/playerFallLeft.png"
 
 Player.prototype.draw = function() {
-
-  // this.context.clearRect(this.position[0], this.position[1], 34, 40);
-  if (this.drawRight) {
+  if (this.falling && this.drawRight) {
+    this.context.drawImage(imgFall, this.position[0], this.position[1], 34, 40);
+  }
+  else if (this.falling && !this.drawRight) {
+    this.context.drawImage(imgFallLeft, this.position[0], this.position[1], 34, 40);
+  } 
+  else if (this.drawRight) {
     this.context.drawImage(imgRight, this.position[0], this.position[1], 34, 40);
-    //this.position = coords;
   }
   else {
     this.context.drawImage(imgLeft, this.position[0], this.position[1], 34, 40);
