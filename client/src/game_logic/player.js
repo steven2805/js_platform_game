@@ -55,4 +55,32 @@ Player.prototype.fallDeath = function(coords) {
   }
 };
 
+
+Player.prototype.checkCollision = function(walls, newCoords) {
+  var oldPosition = this.position;
+  this.position = newCoords;
+  for (var wall of walls) {
+    // console.log(walls);
+    // console.log(wall);
+    if ((this.position[0]+36 >= wall[0] && this.position[0]+36 <= wall [0]+40) && (this.position[1]+40 > wall[1] && this.position[1]+40 < wall[1]+40)) {
+      this.position = oldPosition;
+      return true;
+    }
+    else if ((this.position[0]+36 >= wall[0] && this.position[0]+36 <= wall[0]+40) && (this.position[1] > wall[1] && this.position[1] < wall[1]+40)) {
+      this.position = oldPosition;
+      return true;
+    }
+    else if ((this.position[0] >= wall[0] && this.position[0] <= wall[0]+40) && (this.position[1]+40 > wall[1] && this.position[1]+40 < wall[1]+40)) {
+      this.position = oldPosition;
+      return true;
+    }
+    else if ((this.position[0] >= wall[0] && this.position[0] <= wall[0]+40) &&
+      (this.position[1] > wall[1] && this.position[1] < wall[1]+40)) {
+      this.position = oldPosition;
+    return true;
+    }
+    else return false;
+  }
+};
+
 module.exports = Player;

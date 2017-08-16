@@ -27,7 +27,7 @@ var collision = function(wallArray) {
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y);
       groundCollisionArray.push(tempCoords);
-      counter += 2;
+      counter++;
     }
   });
   return groundCollisionArray;
@@ -42,7 +42,7 @@ var underSide = function (wallArray){
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y + 40);
       underSides.push(tempCoords)
-      counter += 2;
+      counter++;
     }
   });
   return underSides;
@@ -57,7 +57,7 @@ var rightWallCollision = function(wallArray){
       tempCoords.push(x);
       tempCoords.push(wall[1] + counter);
       rightWalls.push(tempCoords);
-      counter += 2;
+      counter++;
     }
   })
   return rightWalls;
@@ -73,7 +73,7 @@ var leftWallCollision = function(wallArray){
       tempholding.push(x + 40);
       tempholding.push(wall[1] + counter);
       leftWalls.push(tempholding);
-      counter += 2;
+      counter++;
     }
   })
 
