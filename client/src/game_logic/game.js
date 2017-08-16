@@ -15,9 +15,8 @@ var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
 
-
 //music handler
-function sound(src) {
+var sound = function(src) {
   this.sound = document.createElement("audio");
   this.sound.src = src;
   this.sound.setAttribute("preload", "auto");
@@ -31,8 +30,6 @@ function sound(src) {
     this.sound.pause();
   }
 }
-
-
 
 var setHalfJump = false;
 
@@ -63,7 +60,7 @@ var gameOver = function() {
 var drawScore = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
-  context.clearRect(10, 30, 100, -30); 
+  context.clearRect(10, 40, 150, -40); 
   context.beginPath();
   context.font = "24px Arial";
   context.fillStyle = "#eee";
@@ -123,20 +120,19 @@ var gameApp = function() {
   myMusic = new sound("/sounds/gametheme.mp3");
   myMusic.play();
 
-  drawScore();
 
   var interval = setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
     currentLevel.drawMap();
 
+    drawScore();
     drawLives();
     collisionDetection();
     halfJump();
+
     player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
     
-      // >>>>>>> check if this block of code is needed by pedro <<<<<<<<<
-
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];
       var playerRightSide = [player.position[0] + 30, player.position[1]];
       var playerLeftSide = [player.position[0] - 30, player.position[1]];
@@ -152,7 +148,6 @@ var gameApp = function() {
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
        collisionDetection();
      }
-
 
      document.addEventListener('keydown', keyDownHandler, false)
      document.addEventListener('keyup', keyUpHandler, false)
@@ -181,7 +176,6 @@ var gameApp = function() {
         drawScore();
         console.log(score)
         break;
-
       }
       else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
         myCoinSound = new sound("/sounds/coinsound.mp3");
@@ -193,7 +187,6 @@ var gameApp = function() {
         drawScore();
         console.log(score)
         break;
-
       }     
     }
 
@@ -217,7 +210,6 @@ var gameApp = function() {
         collisions.emptyArrays();
         selectLevel()
       }
-
       else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
         if (player.hasKey) {
           myMusic.stop();
@@ -275,6 +267,7 @@ var gameApp = function() {
       }
 
     }
+
     if (leftKeyPressed && player.walkLeft === true) {
       if(oldCoords[0] <= 0){
         newCoords = [oldCoords[0], oldCoords[1]];
@@ -292,8 +285,6 @@ var gameApp = function() {
 
 
   var collisionDetection = function(){
-
-
 
     for(var number of numbers){
       for(var ground of collisions.ground){ 
@@ -320,7 +311,6 @@ var gameApp = function() {
       }
     }
 
-
     for(var number of heightnumbers){
       for(var wall of collisions.rightWalls){ 
         if(player.position[0] + 40 === wall[0] && player.position[1] + number === wall[1]){
@@ -333,6 +323,7 @@ var gameApp = function() {
         }
       }
     }
+
     for(number of heightnumbers){
       for(var wall of collisions.leftWalls){
         if(player.position[0] === wall[0] && player.position[1] + number === wall[1]){
