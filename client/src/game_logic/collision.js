@@ -10,6 +10,13 @@ var underSides = [];
 var rightWalls = [];
 var leftWalls = [];
 
+Collision.prototype.emptyArrays = function() {
+  groundCollisionArray = [];
+  underSides = [];
+  rightWalls = [];
+  leftWalls = [];
+};
+
 
 var collision = function(wallArray) {
   wallArray.forEach(function(wall) {
@@ -20,7 +27,7 @@ var collision = function(wallArray) {
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y);
       groundCollisionArray.push(tempCoords);
-      counter ++;
+      counter += 2;
     }
   });
   return groundCollisionArray;
@@ -35,10 +42,9 @@ var underSide = function (wallArray){
       tempCoords.push(wall[0] + counter)
       tempCoords.push(y + 40);
       underSides.push(tempCoords)
-      counter++;
+      counter += 2;
     }
   });
-  console.log(underSides)
   return underSides;
 }
 
@@ -51,10 +57,9 @@ var rightWallCollision = function(wallArray){
       tempCoords.push(x);
       tempCoords.push(wall[1] + counter);
       rightWalls.push(tempCoords);
-      counter ++;
+      counter += 2;
     }
   })
-  console.log(rightWalls)
   return rightWalls;
 }
 
@@ -68,7 +73,7 @@ var leftWallCollision = function(wallArray){
       tempholding.push(x + 40);
       tempholding.push(wall[1] + counter);
       leftWalls.push(tempholding);
-      counter ++;
+      counter += 2;
     }
   })
 

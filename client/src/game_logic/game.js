@@ -1,14 +1,62 @@
-var LevelPlanner = require('./levels');
+var levelsPack = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
 var score = 0;
+var myCoinSound;
+var myMusic;
+var myTadaSound;
+var levelCounter = 0;
+var currentPlan = levelsPack[0];
+var currentLevel;
+var player;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
+
+
+//music handler
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
+
+
+
 var setHalfJump = false;
 
+var selectLevel = function() {
+  levelCounter++;
+  player.delete();
+  if (levelCounter === levelsPack.length - 1){
+    gameOver();
+    return;
+  }
+  var newLevel = levelsPack[levelCounter];
+  currentPlan = newLevel;
+  gameApp();
+}
+
+var gameOver = function() {
+  currentLevel.deleteMap();
+  var endPlan = levelsPack[4];
+  var endLevel = new Level(endPlan);
+  endLevel.setUpMap();
+  endLevel.drawMap();
+  var restartButton = document.getElementById("restart-button");
+  restartButton.style.display = "inline-block";
+}
 
 var drawScore = function() {
   var canvas = document.getElementById("game-canvas");
@@ -47,24 +95,31 @@ var keyUpHandler = function(evt) {
 
 
 var gameApp = function() {
-  var levelPlan = new LevelPlanner()
-  var levelOne = new Level(levelPlan.level);  
-  levelOne.setUpMap();
-  var player = new Player(levelOne.playerStart);
-  player.draw([levelOne.playerStart[0], levelOne.playerStart[1]]);
-  var collisions = new Collision(levelOne.walls);
+  currentLevel = new Level(currentPlan); 
+  currentLevel.deleteMap(); 
+  currentLevel.setUpMap();
+  player = new Player(currentLevel.playerStart);
+  player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
+  var collisions = new Collision(currentLevel.walls);
 
 
-  var coins = levelOne.coins;
+  var coins = currentLevel.coins;
+
+
+  // calling music;
+  myMusic = new sound("gametheme.mp3");
+  myMusic.play();
 
   drawScore();
 
-  setInterval(function() {
+  var interval = setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
-    levelOne.drawMap();
+    currentLevel.drawMap();
+
     collisionDetection();
     halfJump();
+    player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
     
       // >>>>>>> check if this block of code is needed by pedro <<<<<<<<<
 
@@ -82,8 +137,6 @@ var gameApp = function() {
 
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
        collisionDetection();
-
-
      }
 
 
@@ -94,7 +147,9 @@ var gameApp = function() {
     // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
-        levelOne.deleteCoin(coin);
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
+        currentLevel.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
@@ -103,7 +158,9 @@ var gameApp = function() {
         break;
       }
       else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
-        levelOne.deleteCoin(coin);
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
+        currentLevel.deleteCoin(coin);
         score += 10;
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
@@ -111,7 +168,53 @@ var gameApp = function() {
         console.log(score)
         break;
 
-      }    
+      }
+      else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
+        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound.play();
+        currentLevel.deleteCoin(coin);
+        score += 10;
+        var index = coins.indexOf(coin);
+        coins.splice(index, 1);
+        drawScore();
+        console.log(score)
+        break;
+
+      }     
+    }
+
+
+    if (playerLeftSide[0] === currentLevel.key[0] && playerLeftSide[1] === currentLevel.key[1]) {
+      currentLevel.removeKey(currentLevel.key);
+      player.hasKey = true;
+      console.log(player.hasKey);
+    }
+    else if (playerRightSide[0] === currentLevel.key[0] && playerRightSide[1] === currentLevel.key[1]) {
+      currentLevel.removeKey(currentLevel.key);
+      player.hasKey = true;
+    }
+
+    if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
+      if (player.hasKey) {
+        myMusic.stop();
+        myTadaSound = new sound("tada.mp3");
+        myTadaSound.play();
+        clearInterval(interval);
+        collisions.emptyArrays();
+        selectLevel()
+      }
+      else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
+        if (player.hasKey) {
+          myMusic.stop();
+          myTadaSound = new sound("tada.mp3");
+          myTadaSound.play();
+          clearInterval(interval);
+          player.delete();
+          collisions.clearArrays();
+          selectLevel();
+          
+        }
+      }
     }
 
     
@@ -130,11 +233,14 @@ var gameApp = function() {
           isjumping = false; 
         }
       }  
+
     }
-    
-
-
     playerCanWalk();
+
+    if (player.lives === 0) {
+      clearInterval(interval);
+      gameOver();
+    }
   }, 50)
 
 

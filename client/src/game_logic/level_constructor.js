@@ -9,6 +9,12 @@ var Level = function(plan) {
   this.grass = [];
   this.bricks = [];
   this.coins= [];
+  this.wood= [];
+
+  this.key = null;
+  this.door = null;
+  this.doorCenter = null;
+
   this.playerStart = null;
 }
 
@@ -20,6 +26,13 @@ var imgBricks = document.createElement('img');
 imgBricks.src = "bricks.png"
 var imgCoins = document.createElement('img');
 imgCoins.src = "coins.png"
+var imgWood = document.createElement('img');
+imgWood.src = "wood.png"
+var imgKey = document.createElement('img');
+imgKey.src = "key.png";
+var imgDoor = document.createElement('img');
+imgDoor.src = "door.png";
+
 
 Level.prototype.setUpMap = function() {
   var yArray = [];
@@ -43,6 +56,22 @@ Level.prototype.setUpMap = function() {
   return this.map
 };
 
+Level.prototype.deleteMap = function() {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(0, 0, 1280, 720);
+  this.emptyArrays();
+};
+
+Level.prototype.emptyArrays = function() {
+  this.map = [];
+  this.walls = [];
+  this.grass = [];
+  this.bricks = [];
+  this.coins = [];
+  this.wood = [];
+};
+
 Level.prototype.deleteCoin = function(coords){
  var canvas = document.getElementById("game-canvas");
  var context = canvas.getContext("2d"); 
@@ -50,29 +79,37 @@ Level.prototype.deleteCoin = function(coords){
  console.log("deleteCoin"+coords)
 }
 
+Level.prototype.removeKey = function(coords) {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(coords[0], coords[1], 40, 40);
+  this.key = [2000, 1000];
+  console.log("Key removed "+ coords)
+};
+  
 Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
 
-
-
-
   this.walls.forEach(function(coords) {  
   context.drawImage(imgRock, coords[0], coords[1], 40, 40); 
   });
-
   this.grass.forEach(function(coords) {  
   context.drawImage(imgGrass, coords[0], coords[1], 40, 40); 
   });
-
   this.bricks.forEach(function(coords) {  
   context.drawImage(imgBricks, coords[0], coords[1], 40, 40); 
   });
 
+  this.wood.forEach(function(coords) {  
+  context.drawImage(imgWood, coords[0], coords[1], 40, 40); 
+  });
+
   this.coins.forEach(function(coords) {  
   context.drawImage(imgCoins, coords[0], coords[1], 40, 40); 
-
   });
+  context.drawImage(imgKey, this.key[0], this.key[1], 40, 40);
+  context.drawImage(imgDoor, this.door[0], this.door[1], 80, 80);
 
 };
 
@@ -94,14 +131,27 @@ Level.prototype.objectFinder = function() {
         this.bricks.push(this.map[b]);
         this.walls.push(this.map[b]);
       }
+      else if (this.plan[y][x] === 'w') {
+        var w = (y * 32) + x;
+        this.wood.push(this.map[w]);
+        this.walls.push(this.map[w]);
+      }
       else if (this.plan[y][x] === 'c') {
         var c = (y * 32) + x;
         this.coins.push(this.map[c]);
-        //this.walls.push(this.map[b]);
       }
       else if (this.plan[y][x] === 'P') {
         var p = (y * 32) + x;
         this.playerStart = this.map[p];
+      }
+      else if (this.plan[y][x] === "K") {
+        var k = (y * 32) + x;
+        this.key = this.map[k];
+      }
+      else if (this.plan[y][x] === "D") {
+        var d = (y *32) + x;
+        this.door = this.map[d];
+        this.doorCenter = [this.door[0]+40, this.door[1]+40];
       }
     }
   }
