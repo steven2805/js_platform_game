@@ -4,6 +4,7 @@ var myDieSound;
 var Player = function(position) {
   this.startingPosition = position;
   this.position = position;
+  this.playerDead = false;
   this.falling = true;
   this.walkRight = true;
   this.walkLeft = true;
@@ -48,8 +49,8 @@ Player.prototype.delete = function() {
 
 Player.prototype.fallDeath = function() {
   this.lives--;
-  console.log(this.lives)
   this.postion = this.startingPosition;
+  console.log(this.lives);
 };
 
 module.exports = Player;

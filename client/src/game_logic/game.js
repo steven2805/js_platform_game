@@ -90,29 +90,30 @@ var keyUpHandler = function(evt) {
 var playerCanWalk = function(){
   var oldCoords = player.position;
   var newCoords = oldCoords;
+  if (!player.playerDead) {
+    if (rightKeyPressed && player.walkRight === true) {
+      if(oldCoords[0] + 10 >= 1280){
+        newCoords = [oldCoords[0], oldCoords[1]];
+        player.position = newCoords;
+      }
+      else{
+        newCoords = [oldCoords[0] + 10, oldCoords[1]];
+        player.drawRight = true;
+        player.position = newCoords;
+        return newCoords;
+      }
+    }
 
-  if (rightKeyPressed && player.walkRight === true) {
-    if(oldCoords[0] + 10 >= 1280){
-      newCoords = [oldCoords[0], oldCoords[1]];
-      player.position = newCoords;
-    }
-    else{
-      newCoords = [oldCoords[0] + 10, oldCoords[1]];
-      player.drawRight = true;
-      player.position = newCoords;
-      return newCoords;
-    }
-  }
-
-  if (leftKeyPressed && player.walkLeft === true) {
-    if(oldCoords[0] <= 0){
-      newCoords = [oldCoords[0], oldCoords[1]];
-    }
-    else {
-      newCoords = [oldCoords[0] - 10, oldCoords[1]];
-      player.drawRight = false;
-      player.position = newCoords;
-      return newCoords;
+    if (leftKeyPressed && player.walkLeft === true) {
+      if(oldCoords[0] <= 0){
+        newCoords = [oldCoords[0], oldCoords[1]];
+      }
+      else {
+        newCoords = [oldCoords[0] - 10, oldCoords[1]];
+        player.drawRight = false;
+        player.position = newCoords;
+        return newCoords;
+      }
     }
   }
 }
@@ -151,10 +152,12 @@ var gameApp = function() {
       player.myDieSound.play();
       player.falling = false;
       player.fallDeath()
+      player.playerDead = true;
+      player.position = player.startingPosition;
       setTimeout(function() {
         myMusic.play();
+        player.playerDead = false;
       }, 4000)
-      player.position = player.startingPosition;
     }
     
 
@@ -268,10 +271,14 @@ var gameApp = function() {
     if (player.lives === 0) {
       myMusic.stop();
       clearInterval(interval);
-      gameOver();
+      setTimeout(function() {
+        gameOver();  
+      }, 2000);
     }
 
-    player.draw();
+    if (!player.playerDead) {
+      player.draw();
+    }
   }, 40)
 
 
