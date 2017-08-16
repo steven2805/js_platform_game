@@ -115,7 +115,6 @@ var gameApp = function() {
     collisions.collisionDetection(player);
     collisions.halfJump(player);
 
-    // player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
     if(player.position[1] > 720) {
       myMusic.stop();
       player.myDieSound.play();
