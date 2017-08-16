@@ -147,7 +147,7 @@ var gameApp = function() {
     collisions.halfJump(player);
 
     //Player death
-    if(player.position[1] > 720 || (!player.falling && fallCounter >200)) {
+    if(player.position[1] > 720 ) {
       myMusic.stop();
       player.myDieSound.play();
       player.falling = false;
@@ -168,11 +168,11 @@ var gameApp = function() {
     //falling
     if (player.falling === true) {
       fallCounter += 10;
+      console.log(fallCounter);
       newCoords = [oldCoords[0], oldCoords[1] + 10];
       player.position = newCoords;
-      console.log(fallCounter);
     }
-    else if (!player.falling) {
+    else if (!player.falling) {   
       fallCounter = 0;
     }
 
@@ -218,12 +218,15 @@ var gameApp = function() {
     }
 
     //Picking up key
-    if (player.position[0] - 30 === currentLevel.key[0] && player.position[1] === currentLevel.key[1]) {
+    if (playerLeftSide[0] === currentLevel.key[0] && playerLeftSide[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
-      console.log(player.hasKey);
     }
-    else if (player.position[0] + 30 === currentLevel.key[0] && player.position[1] === currentLevel.key[1]) {
+    else if (playerRightSide[0] === currentLevel.key[0] && playerRightSide[1] === currentLevel.key[1]) {
+      currentLevel.removeKey(currentLevel.key);
+      player.hasKey = true;
+    }
+    else if (playerBottom[0] + 10 === currentLevel.key[0] + 20 && playerBottom[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
     }
