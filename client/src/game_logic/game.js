@@ -71,6 +71,17 @@ var drawScore = function() {
   context.closePath();
 }
 
+var drawLives = function() {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(1180, 40, 100, -40); 
+  context.beginPath();
+  context.font = "24px Arial";
+  context.fillStyle = "#eee";
+  context.fillText("Lives: "+ player.lives, 1180, 30);
+  context.closePath();
+}
+
 var keyDownHandler = function(evt) {
   if (evt.keyCode === 39) {
     rightKeyPressed = true;
@@ -119,6 +130,7 @@ var gameApp = function() {
     var newCoords = oldCoords;
     currentLevel.drawMap();
 
+    drawLives();
     collisionDetection();
     halfJump();
     player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
