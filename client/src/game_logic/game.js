@@ -8,6 +8,8 @@ var myMusic;
 var myTadaSound;
 var levelCounter = 0;
 var currentPlan = levelsPack[0];
+var currentLevel;
+var player;
 
 var leftKeyPressed = false;
 var rightKeyPressed = false;
@@ -36,13 +38,26 @@ var setHalfJump = false;
 
 var selectLevel = function() {
   levelCounter++;
-  var newLevel = levelsPack[levelCounter];
-  currentPlan = newLevel;
-  gameApp();
+  player.delete();
+  if (levelCounter === levelsPack.length - 1){
+    gameOver();
+    return;
+  }
+  else {
+    var newLevel = levelsPack[levelCounter];
+    currentPlan = newLevel;
+    gameApp();
+  }
 }
 
-var gameOver = function(currentLevel) {
+var gameOver = function() {
   currentLevel.deleteMap();
+  var endPlan = levelsPack[4];
+  var endLevel = new Level(endPlan);
+  endLevel.setUpMap();
+  endLevel.drawMap();
+  var restartButton = document.getElementById("restart-button");
+  restartButton.style.display = "inline-block";
 }
 
 var drawScore = function() {
@@ -82,11 +97,10 @@ var keyUpHandler = function(evt) {
 
 
 var gameApp = function() {
-  // var levelPlan = new LevelPlanner()
-  var currentLevel = new Level(currentPlan); 
+  currentLevel = new Level(currentPlan); 
   currentLevel.deleteMap(); 
   currentLevel.setUpMap();
-  var player = new Player(currentLevel.playerStart);
+  player = new Player(currentLevel.playerStart);
   player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
   var collisions = new Collision(currentLevel.walls);
 
@@ -188,7 +202,6 @@ var gameApp = function() {
         myTadaSound = new sound("tada.mp3");
         myTadaSound.play();
         clearInterval(interval);
-        player.delete();
         collisions.emptyArrays();
         selectLevel()
       }
@@ -200,7 +213,7 @@ var gameApp = function() {
           clearInterval(interval);
           player.delete();
           collisions.clearArrays();
-          selectLevel()
+          selectLevel();
           
         }
       }
@@ -228,7 +241,7 @@ var gameApp = function() {
 
     if (player.lives === 0) {
       clearInterval(interval);
-      gameOver(currentLevel);
+      gameOver();
     }
   }, 50)
 
