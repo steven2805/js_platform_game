@@ -109,7 +109,7 @@ var gameApp = function() {
 
 
   // calling music;
-  myMusic = new sound("gametheme.mp3");
+  myMusic = new sound("/sounds/gametheme.mp3");
   myMusic.play();
 
   drawScore();
@@ -149,7 +149,7 @@ var gameApp = function() {
     // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
-        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound = new sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -160,7 +160,7 @@ var gameApp = function() {
         break;
       }
       else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
-        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound = new sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -172,7 +172,7 @@ var gameApp = function() {
 
       }
       else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
-        myCoinSound = new sound("coinsound.mp3");
+        myCoinSound = new sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -199,22 +199,22 @@ var gameApp = function() {
     if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
       if (player.hasKey) {
         myMusic.stop();
-        myTadaSound = new sound("tada.mp3");
+        myTadaSound = new sound("/sounds/tada.mp3");
         myTadaSound.play();
         clearInterval(interval);
         collisions.emptyArrays();
         selectLevel()
       }
+
       else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
         if (player.hasKey) {
           myMusic.stop();
-          myTadaSound = new sound("tada.mp3");
+          myTadaSound = new sound("/sounds/tada.mp3");
           myTadaSound.play();
           clearInterval(interval);
           player.delete();
           collisions.clearArrays();
-          selectLevel();
-          
+          selectLevel(); 
         }
       }
     }
