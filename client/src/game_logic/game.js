@@ -111,13 +111,23 @@ var gameApp = function() {
   player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
   var collisions = new Collision(currentLevel.walls);
 
-
   var update = function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
     currentLevel.drawMap();
 
-    collisionDetection();
+    // player.position = [player.position[0], player.position[1]]
+    player.checkCollision(currentLevel.walls, [player.position[0], player.position[1] + 10]);
+
+    if(player.falling) {
+      player.position = [player.position[0], player.position[1] - 10]
+      newCoords = [player.position[0], player.position[1] + 10];
+      console.log("player falling", newCoords)
+      player.draw(newCoords);
+      oldCoords = newCoords;
+    }
+    
+    // player.checkCollision(currentLevel.walls, newCoords);
     halfJump();
     player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
 
@@ -128,15 +138,10 @@ var gameApp = function() {
         var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
 
-        if (player.falling === true) {
-          newCoords = [oldCoords[0], oldCoords[1] + 10];
-          
-          player.draw(newCoords);
-          oldCoords = newCoords;
-        }
+       
 
-        if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
-         collisionDetection();
+        if(player.falling === true && (rightKeyPressed === true || leftKeyPressed === true)) {
+         player.checkCollision(currentLevel.walls, newCoords);
        }
 
 

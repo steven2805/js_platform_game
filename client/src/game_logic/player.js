@@ -18,6 +18,7 @@ Player.prototype.draw = function(coords) {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
   console.log(this.position);
+  console.log(coords);
   context.clearRect(this.position[0], this.position[1], 34, 40);
   context.drawImage(imgRight, coords[0], coords[1], 34, 40);
   this.position = coords;
@@ -59,28 +60,37 @@ Player.prototype.fallDeath = function(coords) {
 Player.prototype.checkCollision = function(walls, newCoords) {
   var oldPosition = this.position;
   this.position = newCoords;
-  for (var wall of walls) {
     // console.log(walls);
+  for (var wall of walls) {
     // console.log(wall);
     if ((this.position[0]+36 >= wall[0] && this.position[0]+36 <= wall [0]+40) && (this.position[1]+40 > wall[1] && this.position[1]+40 < wall[1]+40)) {
       this.position = oldPosition;
-      return true;
+      this.falling = false;
+      break;
     }
     else if ((this.position[0]+36 >= wall[0] && this.position[0]+36 <= wall[0]+40) && (this.position[1] > wall[1] && this.position[1] < wall[1]+40)) {
       this.position = oldPosition;
-      return true;
+      this.falling = false;
+      break;
     }
     else if ((this.position[0] >= wall[0] && this.position[0] <= wall[0]+40) && (this.position[1]+40 > wall[1] && this.position[1]+40 < wall[1]+40)) {
       this.position = oldPosition;
-      return true;
+      this.falling = false;
+      break;
     }
     else if ((this.position[0] >= wall[0] && this.position[0] <= wall[0]+40) &&
       (this.position[1] > wall[1] && this.position[1] < wall[1]+40)) {
       this.position = oldPosition;
-    return true;
+      this.falling = false;
+      break;
     }
-    else return false;
+    else {
+      this.falling = true;
+    }
   }
 };
 
 module.exports = Player;
+
+
+//checkCollision should be used when moving left and right.This might present a problem in setting walkRight and walkLeft to true as well as falling to false.
