@@ -1,40 +1,40 @@
-var LevelPlanner = function(){
-  this.level = selectedLevel();
-};
+// var LevelPlanner = function(){
+//   this.level = selectedLevel();
+// };
 
-var selectedLevel = function(){
-  result = loadLevelOne();
+// var selectedLevel = function(){
+//   result = loadLevelOne();
  // document.getElementById("button1").addEventListener("click", loadLevelOne());
- return result;
-}
+ // return result;
+// }
 
-var loadLevelOne = function(){
-level = [
+// var loadLevelOne = function(){
+var levelsPack = [[
 "                                ", 
 "                                ", 
 "  P     c                       ", 
-" xxxxxxxxxxxx                   ", 
+" xxxx xxxxxxx                   ", 
 "                                ", 
 "                                ", 
 "                                ", 
-"x x x                   gggggg  ", 
+"x x x                    ggggg  ", 
 "xxxxx   xxxxxxxxxxxxxx  bbbbbb  ", 
 "xxxxx                   bb      ", 
 "xx xx            xxxxxxxbb  bbbb", 
 "xxxxx     c             bb    bb", 
-"xxxxxxxxxxxxx              c Kbb", 
+"xxxxxxxxx xxx              c  bb", 
 "xxxxx         c         bbbbbbbb", 
-"xxxD         xxx     x  bbbbbbbb", 
-"xxx                    gbbbbbbbb", 
-"xxxxxgggggggggggggggggggbbbbbbbb", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
-]
+"xxxD         xxx  x  x  bbbbbbbb", 
+"xxx     K              gbbbbbbbb", 
+"xxxxxgggggggggg  gggggggbbbbbbbb", 
+"xxxxxxxxxxxxxxx  xxxxxxxxxxxxxxx"  
+],
 
-var level2 = [
+[
 "                                ", 
 "                                ", 
 "  P     c                       ", 
-" xxxxxxxxxxxx                   ", 
+" xxxxxxxx                       ", 
 "                                ", 
 "                                ", 
 "                                ", 
@@ -45,38 +45,81 @@ var level2 = [
 "xxxxx     c             bb    bb", 
 "xxxxxxxxxxxxx              c  bb", 
 "xxxxx         c         bbbbbbbb", 
-"xxxxx        xxx        bbbbbbbb", 
-"xxxxx   c               bbbbbbbb", 
+"xxxxx        xxx        D bbbbbb", 
+"xxxxx   c           K     bbbbbb", 
 "xxxxxgggggggggggggggggggbbbbbbbb", 
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
-]
+],
 
-var level3 = [
+[
 "                                ",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
-"x   P     c x                  x", 
+"x   P     c                    x", 
 "x xxxxxxxxxxx     c           cx", 
 "x               wwwwwwww     wwx", 
 "xwwwwwwwwwww    w          wwwwx", 
-"x          wwcwww  wwwwwwwwwwwwx", 
+"x          wwcwww  wwwwww wwwwwx", 
 "x           www    w           x", 
 "x c       c        w       c   x", 
-"xwww    wwwwwwwwwwww    wwwwwwwx", 
-"x                       ww   c x", 
+"xwww    wwwwwwwwwwww    wwww wwx", 
+"x                       ww   cKx", 
 "x   wwwww             wwww  wwwx", 
 "x         c                wwwwx", 
-"xxxxxxxxxxxxx   xxxxxxxxxxxxxxxx", 
+"xxxxxxxxxxxxx  xxxxxxxxxxxxxxxxx", 
 "xxxxx         c         xxxxxxxx", 
-"xxxxx        xxx        xxxxxxxx", 
-"xxxxx   c           c   xxxxxxxx", 
+"xxxD         xxx        xxxxxxxx", 
+"xxx     c           c   xxxxxxxx", 
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
-]
-return level;
-}
+],
+
+
+[
+"                                ",
+"                                ",
+"x      x                        ",
+"x K   xxx bbb bb                ",
+"xxxxxxxxx        bb  b  b ggg   ",
+"xxxxxx                    g   g ",
+"xxxxx       b                g  ",
+"xx    x    bb  bb         ggg   ",
+"xx    x  bb        bbbb bb      ",
+"xxxxxxxx                        ",
+"xxxxxxxxw                       ",
+"xxxxxxxx   w ww w               ",
+"xxxxxxxx w       ww             ",
+"xxxxxxxx             www        ",
+"xxxxxxxx           ww           ",
+"xxD           ww ww             ",
+"xx     P   www                  ",
+"xxxxxxxxwwwwgg                  ",
+],
+
+
+[
+"                                ",
+"                                ",
+"                                ",
+"    xxx      x     x   x xxxx   ",
+"   x   K    x x    xx xx x      ",
+"  x   xxx  x P x   x x x xxxx   ",
+"   x   x  xxxxxxx  x   x x      ",
+"    xxxx x       x x   x xxxx   ",
+"                                ",
+"                     D           ",
+"                                ",
+"    xxx   x       x xxxx  xxx   ",
+"   x   x   x     x  x     x  x  ",
+"  x     x   x   x   xxxx  xxx   ",
+"   x   x     x x    x     x xx  ",
+"    xxx       x     xxxx  x  x  ",
+"                                ",
+"ggggggggggggwwwwwwwwwwgggggggggg",
+]]
 
 
 
 
-module.exports = LevelPlanner;
+
+module.exports = levelsPack;
 
 
