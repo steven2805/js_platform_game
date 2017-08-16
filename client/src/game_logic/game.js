@@ -50,7 +50,7 @@ var selectLevel = function() {
 
 var gameOver = function() {
   currentLevel.deleteMap();
-  var endPlan = levelsPack[3];
+  var endPlan = levelsPack[4];
   var endLevel = new Level(endPlan);
   endLevel.setUpMap();
   endLevel.drawMap();
