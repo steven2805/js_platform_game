@@ -56,6 +56,22 @@ Level.prototype.setUpMap = function() {
   return this.map
 };
 
+Level.prototype.deleteMap = function() {
+  var canvas = document.getElementById("game-canvas");
+  var context = canvas.getContext("2d");
+  context.clearRect(0, 0, 1280, 720);
+  this.emptyArrays();
+};
+
+Level.prototype.emptyArrays = function() {
+  this.map = [];
+  this.walls = [];
+  this.grass = [];
+  this.bricks = [];
+  this.coins = [];
+  this.wood = [];
+};
+
 Level.prototype.deleteCoin = function(coords){
  var canvas = document.getElementById("game-canvas");
  var context = canvas.getContext("2d"); 
