@@ -1,13 +1,53 @@
-body {
+
+
+#main-body {
   background-color: grey;
+  background: url(/images/index_background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#game-body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
 }
 
 h1 {
   color: blue;
 }
 
+.wrapper {
+  text-align: center;
+}
+
+#start-button {
+  position: absolute;
+  top: 35%;
+  right: 50%;
+  background-color: black;
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+}
+
+
 #game-canvas {
-  background: #eee;
+  background-image: url("http://www.desktop-background.com/download/1280x720/2010/12/11/124720_gallery-for-cartoon-clouds-backgrounds-hd_1920x1080_h.jpg");
   display: block;
   margin: 0 auto;
+}
+
+#restart-button {
+  display: none;
+  text-align: center;
+  margin-left: 45%;
+  width: 170px;
+  height: 75px;
+  font-size: 50px;
+  border-radius: 10px;
+  background-color: tomato;
 }
