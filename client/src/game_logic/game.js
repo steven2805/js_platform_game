@@ -95,16 +95,13 @@ var gameApp = function() {
   player = new Player(currentLevel.playerStart);
   player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
   var collisions = new Collision(currentLevel.walls);
-
-
   var coins = currentLevel.coins;
-
-
 
   // calling music;
   myMusic = new Sound("/sounds/gametheme.mp3");
   myMusic.play();
 
+  //Beginning of interval loop
   var interval = setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
@@ -139,8 +136,8 @@ var gameApp = function() {
       }
 
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
-       collisions.collisionDetection(player);
-     }
+        collisions.collisionDetection(player);
+      }
 
      document.addEventListener('keydown', keyDownHandler, false)
      document.addEventListener('keyup', keyUpHandler, false)
@@ -159,7 +156,7 @@ var gameApp = function() {
         console.log(score)
         break;
       }
-      else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
+      else if(playerRightSide[0] === coin[0] + 20 && playerRightSide[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
@@ -170,7 +167,7 @@ var gameApp = function() {
         console.log(score)
         break;
       }
-      else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
+      else if(playerBottom[0] + 10 === coin[0] + 20 && playerBottom[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
@@ -184,17 +181,17 @@ var gameApp = function() {
     }
 
 
-    if (playerLeftSide[0] === currentLevel.key[0] && playerLeftSide[1] === currentLevel.key[1]) {
+    if (player.position[0] - 30 === currentLevel.key[0] && player.position[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
       console.log(player.hasKey);
     }
-    else if (playerRightSide[0] === currentLevel.key[0] && playerRightSide[1] === currentLevel.key[1]) {
+    else if (player.position[0] + 30 === currentLevel.key[0] && player.position[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
     }
 
-    if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
+    if (player.position[0] + 30 === currentLevel.doorCenter[0] && player.position[1] === currentLevel.doorCenter[1]) {
       if (player.hasKey) {
         myMusic.stop();
         myTadaSound = new Sound("/sounds/tada.mp3");
@@ -203,7 +200,7 @@ var gameApp = function() {
         collisions.emptyArrays();
         selectLevel()
       }
-      else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
+      else if (player.position[0] - 30 === currentLevel.doorCenter[0] && player.position[1] === currentLevel.doorCenter[1]) {
         if (player.hasKey) {
           myMusic.stop();
           myTadaSound = new Sound("/sounds/tada.mp3");

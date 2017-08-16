@@ -1,14 +1,3 @@
-// var LevelPlanner = function(){
-//   this.level = selectedLevel();
-// };
-
-// var selectedLevel = function(){
-//   result = loadLevelOne();
- // document.getElementById("button1").addEventListener("click", loadLevelOne());
- // return result;
-// }
-
-// var loadLevelOne = function(){
 var levelsPack = [[
 "                                ", 
 "                                ", 
@@ -31,24 +20,24 @@ var levelsPack = [[
 ],
 
 [
-"                                ", 
-"                                ", 
-"  P     c                       ", 
-" xxxxxxxx                       ", 
-"                                ", 
-"                                ", 
-"                                ", 
-"x x xx     c            gggggg  ", 
-"xxxxxx   xxxxxxxxxxxxx  bbbbbb  ", 
-"xxxxx                   bb      ", 
-"xx xx            xxxxxxxbb  bbbb", 
-"xxxxx     c             bb    bb", 
-"xxxxxxxxxxxxx              c  bb", 
-"xxxxx         c         bbbbbbbb", 
-"xxxxx        xxx        D bbbbbb", 
-"xxxxx   c           K     bbbbbb", 
-"xxxxxgggggggggggggggggggbbbbbbbb", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
+"             b                  ", 
+"    b          P            c   ", 
+"    b      bbbbbbbbbb  bbbbbb  b", 
+"    b c  c b                   b", 
+"    bbbbbbbb               bbbbb", 
+"                               b", 
+"b K                            b", 
+"bbb  c     c   c   c    gggggg b", 
+"bc  bbbb  bbbbbbbbbbb   bbbbbb b", 
+"bbb                     bb     b", 
+"bbbbb                   bb  bbbb", 
+"bb bbb    c       c     bb c  bb", 
+"bbbbbbbbbbbbb   bbbbb      bbbbb", 
+"bb bb         c         bbbbbbbb", 
+"bbbbb        bbb        D bbbbbb", 
+"bb bb   c     c     c     bbbbbb", 
+"bbbbbgggggggggggggggg  gbbbbbbbb", 
+"xxxxxxxxxxxxxxxxxxxxx  xxxxxxxxx"  
 ],
 
 [
