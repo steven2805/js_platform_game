@@ -20,20 +20,17 @@ h1 {
 }
 
 .wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 #start-button {
   position: absolute;
-    top: 35%;
-    right: 50%;
-
-  /*transition: .5s ease;*/
-      /*vertical-align: center;*/
-      background-color: black;
-      border: 0;
-      padding: 0;
-      margin: 0;
+  top: 35%;
+  right: 50%;
+  background-color: black;
+  border: 0;
+  padding: 0;
+  margin: 0;
 
 }
 
