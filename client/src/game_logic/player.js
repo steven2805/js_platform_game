@@ -39,21 +39,10 @@ Player.prototype.delete = function() {
   this.context.clearRect(this.position[0], this.position[1], 34, 40);
 };
 
-// Player.prototype.drawRight = function(coords) {
-//   this.context.clearRect(this.position[0], this.position[1], 34, 40);
-//   this.context.drawImage(imgRight, coords[0], coords[1], 34, 40);
-//   this.position = coords;
-// };
-
-// Player.prototype.drawLeft = function(coords) {
-//   this.context.clearRect(this.position[0], this.position[1], 34, 40);
-//   this.context.drawImage(imgLeft, coords[0], coords[1], 34, 40);
-//   this.position = coords;
-// };
-
-Player.prototype.fallDeath = function(coords) {
+Player.prototype.fallDeath = function() {
   this.lives--;
-  this.draw(coords);
+  console.log(this.lives)
+  this.postion = this.startingPosition;
 };
 
 module.exports = Player;

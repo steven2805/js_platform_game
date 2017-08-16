@@ -43,11 +43,11 @@ var levelsPack = [[
 [
 "                                ",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
-"x   P     c                    x", 
+"x   P     c x                  x", 
 "x xxxxxxxxxxx     c           cx", 
 "x               wwwwwwww     wwx", 
 "xwwwwwwwwwww    w          wwwwx", 
-"x          wwcwww  wwwwww wwwwwx", 
+"x          wwcwww  wwwwwwwwwwwwx", 
 "x           www    w           x", 
 "x c       c        w       c   x", 
 "xwww    wwwwwwwwwwww    wwww wwx", 
@@ -57,8 +57,8 @@ var levelsPack = [[
 "xxxxxxxxxxxxx  xxxxxxxxxxxxxxxxx", 
 "xxxxx         c         xxxxxxxx", 
 "xxxD         xxx        xxxxxxxx", 
-"xxx     c           c   xxxxxxxx", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
+"xxx     c              cxxxxxxxx", 
+"xxxxxx xx xxx   xxxxx  xxxxxxxxx" 
 ],
 
 
@@ -69,18 +69,18 @@ var levelsPack = [[
 "x K   xxx bbb bb                ",
 "xxxxxxxxx        bb  b  b ggg   ",
 "xxxxxx                    g   g ",
-"xxxxx       b                g  ",
-"xx    x    bb  bb         ggg   ",
-"xx    x  bb        bbbb bb      ",
+"xxxxx       b                gg ",
+"xx    x    bb  bb         gggg  ",
+"xx    x  bbb       bbbb bbb     ",
 "xxxxxxxx                        ",
 "xxxxxxxxw                       ",
 "xxxxxxxx   w ww w               ",
-"xxxxxxxx w       ww             ",
+"xxxxxxxx w      www             ",
 "xxxxxxxx             www        ",
-"xxxxxxxx           ww           ",
-"xxD           ww ww             ",
-"xx     P   www                  ",
-"xxxxxxxxwwwwgg                  ",
+"xxxxxxxx           www          ",
+"xxD           ww www            ",
+"xx     P   wwww                 ",
+"xxxxxxxxwwwwgg           ggggggg",
 ],
 
 
