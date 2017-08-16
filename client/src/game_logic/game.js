@@ -2,6 +2,7 @@ var levelsPack = require('./levels');
 var Level = require('./level_constructor');
 var Player = require('./player');
 var Collision = require('./collision');
+var Sound = require('./sound')
 var score = 0;
 var myCoinSound;
 var myMusic;
@@ -16,20 +17,20 @@ var rightKeyPressed = false;
 var isJumping = false;
 
 //music handler
-var sound = function(src) {
-  this.sound = document.createElement("audio");
-  this.sound.src = src;
-  this.sound.setAttribute("preload", "auto");
-  this.sound.setAttribute("controls", "none");
-  this.sound.style.display = "none";
-  document.body.appendChild(this.sound);
-  this.play = function(){
-    this.sound.play();
-  }
-  this.stop = function(){
-    this.sound.pause();
-  }
-}
+// var sound = function(src) {
+//   this.sound = document.createElement("audio");
+//   this.sound.src = src;
+//   this.sound.setAttribute("preload", "auto");
+//   this.sound.setAttribute("controls", "none");
+//   this.sound.style.display = "none";
+//   document.body.appendChild(this.sound);
+//   this.play = function(){
+//     this.sound.play();
+//   }
+//   this.stop = function(){
+//     this.sound.pause();
+//   }
+// }
 
 var setHalfJump = false;
 
@@ -116,10 +117,10 @@ var gameApp = function() {
   var coins = currentLevel.coins;
 
 
-  // calling music;
-  myMusic = new sound("/sounds/gametheme.mp3");
-  myMusic.play();
 
+  // calling music;
+  myMusic = new Sound("/sounds/gametheme.mp3");
+  myMusic.play();
 
   var interval = setInterval(function() {
     var oldCoords = player.position;
@@ -131,7 +132,15 @@ var gameApp = function() {
     collisionDetection();
     halfJump();
 
-    player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
+    // player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
+    if(player.position[1] > 720) {
+      myMusic.stop();
+      player.myDieSound.play();
+      setTimeout(function() {
+        player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]])
+      myMusic.play();
+      }, 3000)
+    }
     
       var playerBottom = [player.position[0] + 10, player.position[1] + 40];
       var playerRightSide = [player.position[0] + 30, player.position[1]];
@@ -156,7 +165,7 @@ var gameApp = function() {
     // need to delete coins from array to work
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
-        myCoinSound = new sound("/sounds/coinsound.mp3");
+        myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -167,7 +176,7 @@ var gameApp = function() {
         break;
       }
       else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
-        myCoinSound = new sound("/sounds/coinsound.mp3");
+        myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -178,7 +187,7 @@ var gameApp = function() {
         break;
       }
       else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
-        myCoinSound = new sound("/sounds/coinsound.mp3");
+        myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
         score += 10;
@@ -204,7 +213,7 @@ var gameApp = function() {
     if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
       if (player.hasKey) {
         myMusic.stop();
-        myTadaSound = new sound("/sounds/tada.mp3");
+        myTadaSound = new Sound("/sounds/tada.mp3");
         myTadaSound.play();
         clearInterval(interval);
         collisions.emptyArrays();
@@ -213,7 +222,7 @@ var gameApp = function() {
       else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
         if (player.hasKey) {
           myMusic.stop();
-          myTadaSound = new sound("/sounds/tada.mp3");
+          myTadaSound = new Sound("/sounds/tada.mp3");
           myTadaSound.play();
           clearInterval(interval);
           player.delete();

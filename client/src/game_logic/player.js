@@ -1,3 +1,6 @@
+var Sound = require('./sound');
+var myDieSound;
+
 var Player = function(position) {
   this.startingPosition = position;
   this.position = position;
@@ -7,6 +10,7 @@ var Player = function(position) {
   this.canJump = true;
   this.hasKey = false;
   this.lives = 3;
+  this.myDieSound = new Sound("/sounds/dudu.mp3");
 }
 
 var imgRight = document.createElement('img');
@@ -49,9 +53,11 @@ Player.prototype.drawLeft = function(coords) {
 
 Player.prototype.fallDeath = function(coords) {
   if (this.position[1] > 720) {
+    // this.myDieSound.play();
     this.falling = false;
     this.lives--;
     this.draw(coords);
+    return true;
   }
 };
 
