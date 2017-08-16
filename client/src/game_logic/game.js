@@ -11,27 +11,9 @@ var levelCounter = 0;
 var currentPlan = levelsPack[0];
 var currentLevel;
 var player;
-
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
-
-//music handler
-// var sound = function(src) {
-//   this.sound = document.createElement("audio");
-//   this.sound.src = src;
-//   this.sound.setAttribute("preload", "auto");
-//   this.sound.setAttribute("controls", "none");
-//   this.sound.style.display = "none";
-//   document.body.appendChild(this.sound);
-//   this.play = function(){
-//     this.sound.play();
-//   }
-//   this.stop = function(){
-//     this.sound.pause();
-//   }
-// }
-
 var setHalfJump = false;
 
 var selectLevel = function() {
@@ -130,8 +112,8 @@ var gameApp = function() {
 
     drawScore();
     drawLives();
-    collisionDetection();
-    halfJump();
+    collisions.collisionDetection(player);
+    collisions.halfJump(player);
 
     // player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
     if(player.position[1] > 720) {
@@ -158,7 +140,7 @@ var gameApp = function() {
       }
 
       if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
-       collisionDetection();
+       collisions.collisionDetection(player);
      }
 
      document.addEventListener('keydown', keyDownHandler, false)
@@ -236,14 +218,15 @@ var gameApp = function() {
     }
 
     
-    if(isJumping === true && player.falling === false && player.canJump == true){  
-      if(setHalfJump === false){
+    if(isJumping === true && player.falling === false && player.canJump == true){
+      collisions.halfJump(player);
+      if(player.setHalfJump === false){
         newCoords = [oldCoords[0], oldCoords[1] - 100];
         player.draw(newCoords);
         oldCoords = newCoords;
         isjumping = false;  
       }
-      else if(setHalfJump === true){
+      else if(player.setHalfJump === true){
         {
           newCoords = [oldCoords[0], oldCoords[1] - 60];
           player.draw(newCoords);
@@ -286,7 +269,8 @@ var gameApp = function() {
         newCoords = [oldCoords[0], oldCoords[1]];
         player.draw(newCoords);
         oldCoords = newCoords;
-      }else{
+      }
+      else {
         newCoords = [oldCoords[0] - 10, oldCoords[1]];
         player.drawLeft(newCoords);
         oldCoords = newCoords;
@@ -294,83 +278,6 @@ var gameApp = function() {
 
     }
   }
-
-
-
-  var collisionDetection = function(){
-
-    for(var number of numbers){
-      for(var ground of collisions.ground){ 
-        if(player.position[0] + number === ground[0] && player.position[1] + 40 === ground[1]){
-          player.falling = false;
-          break;
-        }
-        else{
-          player.falling = true;
-        }
-      }
-    }
-
-    for(var number of numbers){
-      for(var underside of collisions.underSides){
-        if(player.position[0] + number === underside[0] && player.position[1] === underside[1]){
-          console.log("detection")
-          player.canJump = false;
-          break;
-        }
-        else{
-          player.canJump = true;
-        }
-      }
-    }
-
-    for(var number of heightnumbers){
-      for(var wall of collisions.rightWalls){ 
-        if(player.position[0] + 40 === wall[0] && player.position[1] + number === wall[1]){
-          player.walkRight = false;
-          console.log("touch wall")
-          break;
-        }
-        else{
-          player.walkRight = true;
-        }
-      }
-    }
-
-    for(number of heightnumbers){
-      for(var wall of collisions.leftWalls){
-        if(player.position[0] === wall[0] && player.position[1] + number === wall[1]){
-          player.walkLeft = false;
-          break;
-        }
-        else
-        {
-          player.walkLeft = true;
-        }
-      }
-    }
-  }
-
-  var halfJump = function(){
-    for(var number of numbers){
-      for(var underside of collisions.underSides){
-        if(player.position[0] + number === underside[0] && player.position[1] - 40 === underside[1]){
-
-          setHalfJump = true;
-          break;
-        }
-        else
-        {
-          setHalfJump = false;
-        }
-      }
-    }
-
-  }
 }
-
-var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34];
-
 
 window.addEventListener('load', gameApp);

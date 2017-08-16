@@ -10,6 +10,7 @@ var Player = function(position) {
   this.canJump = true;
   this.hasKey = false;
   this.lives = 3;
+  this.setHalfJump = false;
   this.myDieSound = new Sound("/sounds/dudu.mp3");
 }
 
