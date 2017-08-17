@@ -45,9 +45,9 @@ var levelsPack = [[
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
 "x   P     c x                  x", 
 "x xxxxxxxxxxx     c           cx", 
-"x               wwwwwwww     wwx", 
+"x          c    wwwwwwww     wwx", 
 "xwwwwwwwwwww    w          wwwwx", 
-"x          wwcwww  wwwwwwwwwwwwx", 
+"x          ww www  wwwwwwwwwwwwx", 
 "x           www    w           x", 
 "x c       c        w       c   x", 
 "xwww    wwwwwwwwwwww    wwww wwx", 
@@ -57,7 +57,7 @@ var levelsPack = [[
 "xxxxxxxxxxxxx  xxxxxxxxxxxxxxxxx", 
 "xxxxx         c         xxxxxxxx", 
 "xxxD         xxx        xxxxxxxx", 
-"xxx     c              cxxxxxxxx", 
+"xxx     c           c   xxxxxxxx", 
 "xxxxxx xx xxx   xxxxx  xxxxxxxxx" 
 ],
 
