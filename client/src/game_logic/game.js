@@ -8,7 +8,7 @@ var myCoinSound;
 var myMusic;
 var myTadaSound;
 var levelCounter = 0;
-var currentPlan = levelsPack[0];
+var currentPlan = levelsPack[3];
 var currentLevel;
 var player;
 var leftKeyPressed = false;

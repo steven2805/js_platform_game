@@ -78,8 +78,8 @@ var levelsPack = [[
 "xxxxxxxx w      www    c        ",
 "xxxxxxxx             www        ",
 "xxxxxxxx           www          ",
-"xxD           ww www            ",
-"xx     P   wwww           cccccc",
+"xxD              www            ",
+"xx     P   wwwww          cccccc",
 "xxxxxxxxwwwwgg           ggggggg",
 ],
 
