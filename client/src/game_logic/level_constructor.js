@@ -90,6 +90,7 @@ Level.prototype.removeKey = function(coords) {
 Level.prototype.drawMap = function() {
   var canvas = document.getElementById("game-canvas");
   var context = canvas.getContext("2d");
+  context.clearRect(0, 0, 1280, 720);
 
   this.walls.forEach(function(coords) {  
   context.drawImage(imgRock, coords[0], coords[1], 40, 40); 

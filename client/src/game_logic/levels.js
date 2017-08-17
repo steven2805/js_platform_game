@@ -1,14 +1,3 @@
-// var LevelPlanner = function(){
-//   this.level = selectedLevel();
-// };
-
-// var selectedLevel = function(){
-//   result = loadLevelOne();
- // document.getElementById("button1").addEventListener("click", loadLevelOne());
- // return result;
-// }
-
-// var loadLevelOne = function(){
 var levelsPack = [[
 "                                ", 
 "                                ", 
@@ -19,46 +8,46 @@ var levelsPack = [[
 "                                ", 
 "x x x                    ggggg  ", 
 "xxxxx   xxxxxxxxxxxxxx  bbbbbb  ", 
-"xxxxx                   bb      ", 
+"xxxxx                   bb  K   ", 
 "xx xx            xxxxxxxbb  bbbb", 
 "xxxxx     c             bb    bb", 
 "xxxxxxxxx xxx              c  bb", 
 "xxxxx         c         bbbbbbbb", 
-"xxxD         xxx  x  x  bbbbbbbb", 
-"xxx     K              gbbbbbbbb", 
+"xxxD         xx      x  bbbbbbbb", 
+"xxx                    gbbbbbbbb", 
 "xxxxxgggggggggg  gggggggbbbbbbbb", 
 "xxxxxxxxxxxxxxx  xxxxxxxxxxxxxxx"  
 ],
 
 [
-"                                ", 
-"                                ", 
-"  P     c                       ", 
-" xxxxxxxx                       ", 
-"                                ", 
-"                                ", 
-"                                ", 
-"x x xx     c            gggggg  ", 
-"xxxxxx   xxxxxxxxxxxxx  bbbbbb  ", 
-"xxxxx                   bb      ", 
-"xx xx            xxxxxxxbb  bbbb", 
-"xxxxx     c             bb    bb", 
-"xxxxxxxxxxxxx              c  bb", 
-"xxxxx         c         bbbbbbbb", 
-"xxxxx        xxx        D bbbbbb", 
-"xxxxx   c           K     bbbbbb", 
-"xxxxxgggggggggggggggggggbbbbbbbb", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  
+"             b                  ", 
+"    b          P            c   ", 
+"    b       bbbbbbbbb  bbbbbb  b", 
+"    b c  c bb                  b", 
+"    bbbbbbbb               bbbbb", 
+"                               b", 
+"b K                            b", 
+"bbb  c     c   c   c    gggggg b", 
+"bc  bbbb  bbbbbbbbbbb   bbbbbb b", 
+"bbb                     bb     b", 
+"bbbbb                   bb  bbbb", 
+"bb bbb    c       c     bb c  bb", 
+"bbbbbbbbbbbbb   bbbbb      bbbbb", 
+"bb bb         c         bbbbbbbb", 
+"bbbbb        bbb        D bbbbbb", 
+"bb bb   c     c     c     bbbbbb", 
+"bbbbbgggggggggggggggg  gbbbbbbbb", 
+"xxxxxxxxxxxxxxxxxxxxx  xxxxxxxxx"  
 ],
 
 [
 "                                ",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 
-"x   P     c                    x", 
+"x   P     c x                  x", 
 "x xxxxxxxxxxx     c           cx", 
-"x               wwwwwwww     wwx", 
+"x          c    wwwwwwww     wwx", 
 "xwwwwwwwwwww    w          wwwwx", 
-"x          wwcwww  wwwwww wwwwwx", 
+"x          ww www  wwwwwwwwwwwwx", 
 "x           www    w           x", 
 "x c       c        w       c   x", 
 "xwww    wwwwwwwwwwww    wwww wwx", 
@@ -69,29 +58,29 @@ var levelsPack = [[
 "xxxxx         c         xxxxxxxx", 
 "xxxD         xxx        xxxxxxxx", 
 "xxx     c           c   xxxxxxxx", 
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
+"xxxxxx xx xxx   xxxxx  xxxxxxxxx" 
 ],
 
 
 [
 "                                ",
 "                                ",
-"x      x                        ",
-"x K   xxx bbb bb                ",
-"xxxxxxxxx        bb  b  b ggg   ",
+"x      x    c                   ",
+"x K c xxx  bb bb  b       c     ",
+"xxxxxxxxx         bb b  b ggg   ",
 "xxxxxx                    g   g ",
-"xxxxx       b                g  ",
-"xx    x    bb  bb         ggg   ",
-"xx    x  bb        bbbb bb      ",
+"xxxxx       b             c  gg ",
+"xx    x    bb  bb    c    gggg  ",
+"xx cc x  bbb       bbbb bbb     ",
 "xxxxxxxx                        ",
 "xxxxxxxxw                       ",
-"xxxxxxxx   w ww w               ",
-"xxxxxxxx w       ww             ",
-"xxxxxxxx             www        ",
-"xxxxxxxx           ww           ",
-"xxD           ww ww             ",
-"xx     P   www                  ",
-"xxxxxxxxwwwwgg                  ",
+"xxxxxxxx   w ww      c          ",
+"xxxxxxxx w      www  w          ",
+"xxxxxxxx             ww         ",
+"xxxxxxxx           www          ",
+"xxD              www     w      ",
+"xx     P   wwwww          cccc g",
+"xxxxxxxxwwwwgggggggg g   ggggggg",
 ],
 
 

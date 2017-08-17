@@ -1,4 +1,8 @@
 
+h1 {
+  color: blue;
+}
+
 
 #main-body {
   background-color: grey;
@@ -15,8 +19,11 @@
   background-color: black;
 }
 
-h1 {
-  color: blue;
+#instructions {
+  color: white;
+  margin-left: 10%;
+  font-size: 40px;
+  float: left;
 }
 
 .wrapper {
@@ -36,7 +43,7 @@ h1 {
 
 
 #game-canvas {
-  background-image: url("http://www.desktop-background.com/download/1280x720/2010/12/11/124720_gallery-for-cartoon-clouds-backgrounds-hd_1920x1080_h.jpg");
+  background-image: url("/images/backGround.jpg");
   display: block;
   margin: 0 auto;
 }
@@ -44,10 +51,12 @@ h1 {
 #restart-button {
   display: none;
   text-align: center;
-  margin-left: 45%;
+  margin-right: 10%;
+  margin-top: 3%;
   width: 170px;
   height: 75px;
   font-size: 50px;
   border-radius: 10px;
   background-color: tomato;
+  float: right;
 }
