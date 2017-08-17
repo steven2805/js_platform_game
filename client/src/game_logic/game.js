@@ -154,6 +154,7 @@ var gameApp = function() {
       player.fallDeath()
       player.playerDead = true;
       player.position = player.startingPosition;
+      // currentLevel.drawDead();
       setTimeout(function() {
         myMusic.play();
         player.playerDead = false;

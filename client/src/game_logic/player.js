@@ -10,7 +10,7 @@ var Player = function(position) {
   this.walkLeft = true;
   this.canJump = true;
   this.hasKey = false;
-  this.lives = 3;
+  this.lives = 0;
   this.setHalfJump = false;
   this.drawRight = true;
   this.myDieSound = new Sound("/sounds/dudu.mp3");
@@ -39,7 +39,6 @@ Player.prototype.draw = function() {
   }
   else {
     this.context.drawImage(imgLeft, this.position[0], this.position[1], 34, 40);
-    //this.position = coords;
   }
 };
 
