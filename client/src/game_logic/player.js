@@ -49,7 +49,6 @@ Player.prototype.delete = function() {
 Player.prototype.fallDeath = function() {
   this.lives--;
   this.postion = this.startingPosition;
-  console.log(this.lives);
 };
 
 module.exports = Player;

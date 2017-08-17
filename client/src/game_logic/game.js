@@ -169,7 +169,6 @@ var gameApp = function() {
     //falling
     if (player.falling === true) {
       fallCounter += 10;
-      console.log(fallCounter);
       newCoords = [oldCoords[0], oldCoords[1] + 10];
       player.position = newCoords;
     }
@@ -191,7 +190,6 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }
       else if(playerRightSide[0] === coin[0] + 20 && playerRightSide[1] === coin[1]){
@@ -202,7 +200,6 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }
       else if(playerBottom[0] + 10 === coin[0] + 20 && playerBottom[1] === coin[1]){
@@ -213,7 +210,6 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }     
     }
@@ -283,6 +279,8 @@ var gameApp = function() {
 
     if (!player.playerDead) {
       player.draw();
+
+
     }
   }, 40)
 

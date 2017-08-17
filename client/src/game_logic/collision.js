@@ -98,7 +98,6 @@ Collision.prototype.collisionDetection = function(player){
   for(var number of numbers){
     for(var underside of this.underSides){
       if(player.position[0] + number === underside[0] && player.position[1] === underside[1]){
-        console.log("detection")
         player.canJump = false;
         break;
       }
@@ -113,7 +112,6 @@ Collision.prototype.collisionDetection = function(player){
     for(var wall of this.rightWalls){ 
       if(player.position[0] + 40 === wall[0] && player.position[1] + number === wall[1]){
         player.walkRight = false;
-        console.log("touch wall")
         break;
       }
       else{
@@ -133,6 +131,7 @@ Collision.prototype.collisionDetection = function(player){
       }
     }
   }
+  // console.log("collision detected");
 }
 
 Collision.prototype.halfJump = function(player){
