@@ -83,7 +83,7 @@ var keyUpHandler = function(evt) {
     leftKeyPressed = false;
   }
   if (evt.keyCode === 32) {
-    isJumping = false;
+    isJumping = false; //change key handler for jump
   }
 }
 
@@ -260,7 +260,8 @@ var gameApp = function() {
       if(player.setHalfJump === false){
         newCoords = [oldCoords[0], oldCoords[1] - 100];
         player.position = newCoords;
-        isjumping = false;  
+        isjumping = false;
+        fallCounter = 0;  
       }
       else if(player.setHalfJump === true){
         newCoords = [oldCoords[0], oldCoords[1] - 60];
