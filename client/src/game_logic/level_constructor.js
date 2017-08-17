@@ -159,12 +159,4 @@ Level.prototype.objectFinder = function() {
   this.drawMap();
 }
 
-// Level.prototype.drawDead = function() {
-//   var canvas = document.getElementById("game-canvas");
-//   var context = canvas.getContext("2d");
-//   var imgDied = document.createElement('img');
-//   imgDied = "/images/youDied.jpg"
-//   context.drawImage(imgDied, 0, 0, 1280, 720);
-// };
-
 module.exports = Level;

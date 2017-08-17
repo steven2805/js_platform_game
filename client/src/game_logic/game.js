@@ -8,7 +8,7 @@ var myCoinSound;
 var myMusic;
 var myTadaSound;
 var levelCounter = 0;
-var currentPlan = levelsPack[3];
+var currentPlan = levelsPack[0];
 var currentLevel;
 var player;
 var leftKeyPressed = false;
@@ -139,6 +139,7 @@ var gameApp = function() {
   var interval = setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
+
     currentLevel.drawMap();
 
     drawScore();
@@ -154,7 +155,6 @@ var gameApp = function() {
       player.fallDeath()
       player.playerDead = true;
       player.position = player.startingPosition;
-      // currentLevel.drawDead();
       setTimeout(function() {
         myMusic.play();
         player.playerDead = false;
