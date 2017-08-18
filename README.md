@@ -13,7 +13,7 @@ Download the master from the repo on Github
 - The character dies if he falls through the gaps in the floor or falls more than 200 pixals.
 - Coin bags increase score (though this is not persisted yet)
 - Currently the collision logic needs some bugs fixed. 
-- Levels an be created, deleted or edited simply by altering the levelsPack in levels.js
+- Levels an be created, deleted or edited simply by altering the levelsPack in levels.js. 
             x = stone
             b = bricks
             g = grass
