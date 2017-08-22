@@ -5,12 +5,17 @@ var Sound = function(src) {
   this.sound.setAttribute("controls", "none");
   this.sound.style.display = "none";
   document.body.appendChild(this.sound);
-  this.play = function(){
-    this.sound.play();
-  }
   this.stop = function(){
     this.sound.pause();
   }
 }
+
+Sound.prototype.play = function() {
+  this.sound.play();
+};
+
+Sound.prototype.stop = function() {
+  this.sound.pause();
+};
 
 module.exports = Sound;

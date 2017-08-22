@@ -11,27 +11,9 @@ var levelCounter = 0;
 var currentPlan = levelsPack[0];
 var currentLevel;
 var player;
-
 var leftKeyPressed = false;
 var rightKeyPressed = false;
 var isJumping = false;
-
-//music handler
-// var sound = function(src) {
-//   this.sound = document.createElement("audio");
-//   this.sound.src = src;
-//   this.sound.setAttribute("preload", "auto");
-//   this.sound.setAttribute("controls", "none");
-//   this.sound.style.display = "none";
-//   document.body.appendChild(this.sound);
-//   this.play = function(){
-//     this.sound.play();
-//   }
-//   this.stop = function(){
-//     this.sound.pause();
-//   }
-// }
-
 var setHalfJump = false;
 
 var selectLevel = function() {
@@ -49,6 +31,7 @@ var selectLevel = function() {
 }
 
 var gameOver = function() {
+  myMusic.stop();
   currentLevel.deleteMap();
   var endPlan = levelsPack[4];
   var endLevel = new Level(endPlan);
@@ -100,69 +83,104 @@ var keyUpHandler = function(evt) {
     leftKeyPressed = false;
   }
   if (evt.keyCode === 32) {
-    isJumping = false;
+    isJumping = false; //change key handler for jump
   }
 }
 
+var playerCanWalk = function(){
+  var oldCoords = player.position;
+  var newCoords = oldCoords;
+  if (!player.playerDead) {
+    if (rightKeyPressed && player.walkRight === true) {
+      if(oldCoords[0] + 10 >= 1280){
+        newCoords = [oldCoords[0], oldCoords[1]];
+        player.position = newCoords;
+      }
+      else{
+        newCoords = [oldCoords[0] + 10, oldCoords[1]];
+        player.drawRight = true;
+        player.position = newCoords;
+        return newCoords;
+      }
+    }
+
+    if (leftKeyPressed && player.walkLeft === true) {
+      if(oldCoords[0] <= 0){
+        newCoords = [oldCoords[0], oldCoords[1]];
+      }
+      else {
+        newCoords = [oldCoords[0] - 10, oldCoords[1]];
+        player.drawRight = false;
+        player.position = newCoords;
+        return newCoords;
+      }
+    }
+  }
+}
 
 var gameApp = function() {
   currentLevel = new Level(currentPlan); 
   currentLevel.deleteMap(); 
   currentLevel.setUpMap();
   player = new Player(currentLevel.playerStart);
-  player.draw([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
+  //player.draw();
   var collisions = new Collision(currentLevel.walls);
-
-
   var coins = currentLevel.coins;
-
-
+  var fallCounter = 0;
 
   // calling music;
   myMusic = new Sound("/sounds/gametheme.mp3");
   myMusic.play();
 
+  document.addEventListener('keydown', keyDownHandler, false)
+  document.addEventListener('keyup', keyUpHandler, false)
+
+  //Beginning of interval loop
   var interval = setInterval(function() {
     var oldCoords = player.position;
     var newCoords = oldCoords;
+
     currentLevel.drawMap();
 
     drawScore();
     drawLives();
-    collisionDetection();
-    halfJump();
+    collisions.collisionDetection(player);
+    collisions.halfJump(player);
 
-    // player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]]);
-    if(player.position[1] > 720) {
+    //Player death
+    if(player.position[1] > 720 || (!player.falling && fallCounter >200)) {
       myMusic.stop();
       player.myDieSound.play();
+      player.falling = false;
+      player.fallDeath()
+      player.playerDead = true;
+      player.position = player.startingPosition;
       setTimeout(function() {
-        player.fallDeath([currentLevel.playerStart[0], currentLevel.playerStart[1]])
-      myMusic.play();
-      }, 3000)
+        myMusic.play();
+        player.playerDead = false;
+      }, 4000)
     }
     
-      var playerBottom = [player.position[0] + 10, player.position[1] + 40];
-      var playerRightSide = [player.position[0] + 30, player.position[1]];
-      var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
+    var playerBottom = [player.position[0] + 10, player.position[1] + 40];
+    var playerRightSide = [player.position[0] + 30, player.position[1]];
+    var playerLeftSide = [player.position[0] - 30, player.position[1]];
 
-      if (player.falling === true) {
-        newCoords = [oldCoords[0], oldCoords[1] + 10];
-        
-        player.draw(newCoords);
-        oldCoords = newCoords;
-      }
+    //falling
+    if (player.falling === true) {
+      fallCounter += 10;
+      newCoords = [oldCoords[0], oldCoords[1] + 10];
+      player.position = newCoords;
+    }
+    else if (!player.falling) {   
+      fallCounter = 0;
+    }
 
-      if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
-       collisionDetection();
-     }
+    if(player.falling == true && rightKeyPressed === true || leftKeyPressed === true) {
+      collisions.collisionDetection(player);
+    }
 
-     document.addEventListener('keydown', keyDownHandler, false)
-     document.addEventListener('keyup', keyUpHandler, false)
-
-    // collision with coins
-    // need to delete coins from array to work
+    //Picking up coins
     for(var coin of coins){
       if(playerLeftSide[0] === coin[0] && playerLeftSide[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
@@ -172,10 +190,9 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }
-      else if(playerRightSide[0] === coin[0] && playerRightSide[1] === coin[1]){
+      else if(playerRightSide[0] === coin[0] + 20 && playerRightSide[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
@@ -183,10 +200,9 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }
-      else if(playerBottom[0] === coin[0] && playerBottom[1] === coin[1]){
+      else if(playerBottom[0] + 10 === coin[0] + 20 && playerBottom[1] === coin[1]){
         myCoinSound = new Sound("/sounds/coinsound.mp3");
         myCoinSound.play();
         currentLevel.deleteCoin(coin);
@@ -194,23 +210,26 @@ var gameApp = function() {
         var index = coins.indexOf(coin);
         coins.splice(index, 1);
         drawScore();
-        console.log(score)
         break;
       }     
     }
 
-
+    //Picking up key
     if (playerLeftSide[0] === currentLevel.key[0] && playerLeftSide[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
-      console.log(player.hasKey);
     }
     else if (playerRightSide[0] === currentLevel.key[0] && playerRightSide[1] === currentLevel.key[1]) {
       currentLevel.removeKey(currentLevel.key);
       player.hasKey = true;
     }
+    else if (playerBottom[0] + 10 === currentLevel.key[0] + 20 && playerBottom[1] === currentLevel.key[1]) {
+      currentLevel.removeKey(currentLevel.key);
+      player.hasKey = true;
+    }
 
-    if (playerRightSide[0] === currentLevel.doorCenter[0] && playerRightSide[1] === currentLevel.doorCenter[1]) {
+    //Finish Level
+    if (player.position[0] + 30 === currentLevel.doorCenter[0] && player.position[1] === currentLevel.doorCenter[1]) {
       if (player.hasKey) {
         myMusic.stop();
         myTadaSound = new Sound("/sounds/tada.mp3");
@@ -219,7 +238,7 @@ var gameApp = function() {
         collisions.emptyArrays();
         selectLevel()
       }
-      else if (playerLeftSide[0] === currentLevel.doorCenter[0] && playerLeftSide[1] === currentLevel.doorCenter[1]) {
+      else if (player.position[0] - 30 === currentLevel.doorCenter[0] && player.position[1] === currentLevel.doorCenter[1]) {
         if (player.hasKey) {
           myMusic.stop();
           myTadaSound = new Sound("/sounds/tada.mp3");
@@ -232,142 +251,42 @@ var gameApp = function() {
       }
     }
 
-    
-    if(isJumping === true && player.falling === false && player.canJump == true){  
-      if(setHalfJump === false){
+    //Jumping
+    if(isJumping === true && player.falling === false && player.canJump == true){
+      collisions.halfJump(player);
+      if(player.setHalfJump === false){
         newCoords = [oldCoords[0], oldCoords[1] - 100];
-        player.draw(newCoords);
-        oldCoords = newCoords;
-        isjumping = false;  
+        player.position = newCoords;
+        isjumping = false;
+        fallCounter = 0;  
       }
-      else if(setHalfJump === true){
-        {
-          newCoords = [oldCoords[0], oldCoords[1] - 60];
-          player.draw(newCoords);
-          oldCoords = newCoords;
-          isjumping = false; 
-        }
+      else if(player.setHalfJump === true){
+        newCoords = [oldCoords[0], oldCoords[1] - 60];
+        player.position= newCoords;
+        isjumping = false;  
       }  
 
     }
-    playerCanWalk();
+    newCoords = playerCanWalk();
 
     if (player.lives === 0) {
       myMusic.stop();
       clearInterval(interval);
-      gameOver();
+      setTimeout(function() {
+        gameOver();  
+      }, 2000);
+    }
+
+    if (!player.playerDead) {
+      player.draw();
+
+
     }
   }, 40)
 
 
 
-  var playerCanWalk = function(){
-    var oldCoords = player.position;
-    var newCoords = oldCoords;
-
-    if (rightKeyPressed && player.walkRight === true) {
-      if(oldCoords[0] + 10 >= 1280){
-        newCoords = [oldCoords[0], oldCoords[1]];
-        player.draw(newCoords);
-        oldCoords = newCoords;
-      }else{
-        newCoords = [oldCoords[0] + 10, oldCoords[1]];
-        player.drawRight(newCoords);
-        oldCoords = newCoords;
-      }
-
-    }
-
-    if (leftKeyPressed && player.walkLeft === true) {
-      if(oldCoords[0] <= 0){
-        newCoords = [oldCoords[0], oldCoords[1]];
-        player.draw(newCoords);
-        oldCoords = newCoords;
-      }else{
-        newCoords = [oldCoords[0] - 10, oldCoords[1]];
-        player.drawLeft(newCoords);
-        oldCoords = newCoords;
-      }
-
-    }
-  }
-
-
-
-  var collisionDetection = function(){
-
-    for(var number of numbers){
-      for(var ground of collisions.ground){ 
-        if(player.position[0] + number === ground[0] && player.position[1] + 40 === ground[1]){
-          player.falling = false;
-          break;
-        }
-        else{
-          player.falling = true;
-        }
-      }
-    }
-
-    for(var number of numbers){
-      for(var underside of collisions.underSides){
-        if(player.position[0] + number === underside[0] && player.position[1] === underside[1]){
-          console.log("detection")
-          player.canJump = false;
-          break;
-        }
-        else{
-          player.canJump = true;
-        }
-      }
-    }
-
-    for(var number of heightnumbers){
-      for(var wall of collisions.rightWalls){ 
-        if(player.position[0] + 40 === wall[0] && player.position[1] + number === wall[1]){
-          player.walkRight = false;
-          console.log("touch wall")
-          break;
-        }
-        else{
-          player.walkRight = true;
-        }
-      }
-    }
-
-    for(number of heightnumbers){
-      for(var wall of collisions.leftWalls){
-        if(player.position[0] === wall[0] && player.position[1] + number === wall[1]){
-          player.walkLeft = false;
-          break;
-        }
-        else
-        {
-          player.walkLeft = true;
-        }
-      }
-    }
-  }
-
-  var halfJump = function(){
-    for(var number of numbers){
-      for(var underside of collisions.underSides){
-        if(player.position[0] + number === underside[0] && player.position[1] - 40 === underside[1]){
-
-          setHalfJump = true;
-          break;
-        }
-        else
-        {
-          setHalfJump = false;
-        }
-      }
-    }
-
-  }
+  
 }
-
-var numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-var heightnumbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34];
-
 
 window.addEventListener('load', gameApp);
